@@ -46,3 +46,4 @@ group :development do
 end
 
 gem 'rest-client'
+gem 'bootstrap-sass', '~> 3.3.6'
