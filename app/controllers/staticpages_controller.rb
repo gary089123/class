@@ -4,4 +4,12 @@ class StaticpagesController < ApplicationController
 
   end
 
+  def readme
+
+  end
+
+  def status
+
+  end
+
 end
