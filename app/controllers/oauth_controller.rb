@@ -3,12 +3,13 @@ class OauthController < ApplicationController
   require 'rest-client'
   require 'json'
 
-  @@client_id = 'ZDc0ODhjOTQtYzhjYi00ZTA0LWJlOWQtMzNmNTQyMjIwZmE1'
-  @@client_secret = '206f1e4607ac584eb776107b62d03ad26d4f04405a042cea551ccca32b7b8a8695bf3b59aea1047c53e9eb6a82dcc67f53f04f5b58a60b3be20321ec132160f7'
-  @@oauth_root_url = 'https://api.cc.ncu.edu.tw/oauth'
+  @@client_id = 'YTEzMmY5OTEtNDEyMC00MGM1LWFmOGUtMTBiNzVhNjRmMjQ0'
+  @@client_secret = '8ae853bff25f54dd4bf54a8168a749d160d610c5724a50f4575a58cd0dfba9b9a6b9f7f08a60ba9c90fcedbb54ec95a697e2dc945220b77acabbc9dccfbbf339'
+  @@api_token = '7411169a651e1910e7f007c2530de6ec0594a26cd27619c3e80e8836b6456505f1e891a0f5bd3a0db1988beee701be2f5ad79e4d81f57eb2d69301584374e88d'
+  @@oauth_root_url = 'http://140.115.3.188/oauth'
 
   def oauth
-    scope = 'course.schedule.read+calendar.event.read+calendar.event.write+user.info.basic.read'
+    scope = 'facility.rent.read+facility.rent.write+facility.rent.verify+facility.manage'
     url = @@oauth_root_url + '/oauth/authorize?response_type=code&scope=' + scope + '&client_id=' + @@client_id
     redirect_to url
   end
@@ -33,11 +34,12 @@ class OauthController < ApplicationController
   end
 
 # just for test
-  def getperson
-    url = 'https://api.cc.ncu.edu.tw/personnel/v1/info'
-    @api = RestClient.get url, { 'Authorization' => 'Bearer ' + ENV['access_token'] }
+  def getfacility
+    id = '1'
+    url = 'http://140.115.3.188/facility/v1/facility/' + id
+    api = RestClient.get url, { 'X-NCU-API-TOKEN' => @@api_token, 'Authorization' => ENV['access_token']}
     respond_to do |format|
-      format.any { render :text => @api }
+      format.any { render :text => api }
     end
   end
 

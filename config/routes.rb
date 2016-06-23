@@ -7,6 +7,5 @@ root 'staticpages#index'
   get 'callback', :to => 'oauth#callback'
 
 # api
-  get 'getpersoninfo', :to => 'oauth#getperson'
-
+  get 'getfacility', :to => 'oauth#getfacility'
 end
