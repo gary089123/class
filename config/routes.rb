@@ -15,7 +15,10 @@ Rails.application.routes.draw do
 # api testing
   get 'getfacility', :to => 'oauth#getfacility'
 
+# 預約
+  resources :rents
+  get 'search', :controller => 'rents'
+
 #預約 CRUD
-#查詢預約 CRUD
 
 end

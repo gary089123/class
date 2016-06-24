@@ -1,0 +1,10 @@
+<div class="row">
+  <%= link_to '預約', new_rent_path, :class => "btn btn-primary", :role => "button" %>
+</div>
+
+<br>
+
+<iframe src="https://calendar.google.com/calendar/embed?height=600&amp;wkst=1&amp;bgcolor=%23FFFFFF&amp;src=
+<%= @rent_calendar_url %>
+&amp;color=%23125A12"
+style="border-width:0" width="800" height="600" frameborder="0" scrolling="no"></iframe>
