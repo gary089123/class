@@ -21,4 +21,5 @@ bootstrap-sass: [GitHub](https://github.com/twbs/bootstrap-sass)
 
 ## Reference
 
-layout copy from: [Bootstrap](http://getbootstrap.com/examples/starter-template/)
+layout copy from: [Bootstrap](http://getbootstrap.com/examples/starter-template/)  
+Google日歷: [Google Calendar Embed Helper](https://calendar.google.com/calendar/embedhelper)
