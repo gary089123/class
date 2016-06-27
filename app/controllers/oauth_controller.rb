@@ -9,7 +9,7 @@ class OauthController < ApplicationController
   @@oauth_root_url = 'http://140.115.3.188/oauth'
 
   def oauth
-    scope = 'facility.rent.read+facility.rent.write+facility.rent.verify+facility.manage'
+    scope = 'facility.rent.read+facility.rent.write+facility.rent.verify+facility.manage+user.info.basic.read'
     url = @@oauth_root_url + '/oauth/authorize?response_type=code&scope=' + scope + '&client_id=' + @@client_id
     redirect_to url
   end
@@ -42,5 +42,14 @@ class OauthController < ApplicationController
       format.any { render :text => api }
     end
   end
+
+  def getperson
+    url = 'http://140.115.3.188/personnel/v1/info'
+    api = RestClient.get url, { 'Authorization' => 'Bearer ' + ENV['access_token']}
+    respond_to do |format|
+      format.any { render :text => api }
+    end
+  end
+
 
 end

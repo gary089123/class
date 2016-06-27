@@ -14,6 +14,7 @@ Rails.application.routes.draw do
 
 # api testing
   get 'getfacility', :to => 'oauth#getfacility'
+  get 'getperson', :to => 'oauth#getperson'
 
 # 預約
   resources :rents
