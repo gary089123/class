@@ -29,6 +29,16 @@ class OauthController < ApplicationController
     jdoc = JSON.parse(@access)
     access_token= jdoc.fetch("access_token")
     ENV['access_token'] = access_token
+    
+    
+    url = 'http://140.115.3.188/personnel/v1/info'
+    api = RestClient.get url, { 'Authorization' => 'Bearer ' + ENV['access_token']}
+
+    #if User.find_by(name:'gary')==nil
+    #  user=api.split(/[,":{}]/).reject(&:empty?)      
+    #  User.create(idnumber:user[1],name:user[5],unit:user[9])      
+    #end
+    #User.create
 
     redirect_to root_path
   end

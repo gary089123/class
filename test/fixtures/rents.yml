@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  idnumber: 1
+  facility: 1
+  start: 
+  end: 
+
+two:
+  idnumber: 1
+  facility: 1
+  start: 
+  end: 

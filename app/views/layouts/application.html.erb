@@ -29,6 +29,7 @@
         <li><%= link_to '借用狀態', pages_status_path %></li>
         <li><%= link_to '預約', rents_path %></li>
         <li><%= link_to '查詢預約', search_path %></li>
+	<li><%= link_to('登出', destroy_admin_session_path, :method => :delete) %></li>
       </ul>
     </div>
   </div>
