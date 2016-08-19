@@ -18,14 +18,42 @@ class RentsController < ApplicationController
   end
 
   def create
-    #@rent = Rent.new(rent_params)
-    puts params[:rent][:start]
+    puts @rent = Rent.new(params_rent)
+    #puts params[:rent][:start]
     #if params[:rent][:start]==nil
     #  puts 'whats the fucks'
-    end 
-    #url = 'http://140.115.3.188/facility/v1/facility/1/rent'
-    #api = ResClient.get url, {'Authorization' => ENV['access_token'] , 'id' => params[:rent][:facility] , 'name' => params[:rent][:idnumber] , 'spans[start]' => params[:rent][:start] , 'span[end]' => params[:rent][:end]}
+    # end 
+    puts url = 'http://140.115.3.188/facility/v1/facility/'+@rent.facility.to_s+'/rent'
+    rent = params[:rent]
+    start = DateTime.new(rent["start(1i)"].to_i ,rent["start(2i)"].to_i ,rent["start(3i)"].to_i ,rent["start(4i)"].to_i, rent["start(5i)"].to_i)
+    endt = DateTime.new(rent["end(1i)"].to_i ,rent["end(2i)"].to_i ,rent["end(3i)"].to_i ,rent["end(4i)"].to_i, rent["end(5i)"].to_i)
+
+    data = [
+      {
+    	:start => start,
+        :end => endt 
+      }
+    ]
+    jdata=data.to_json
+    api = RestClient.post(url,
+    {
+      :name => @rent.idnumber,
+      :spans => jdata,
+      :access_token => ENV['access_token']
+    })
+    
     redirect_to root_path 
+  end
+
+  def params_date_time params , label
+    #date = DateTime.new(
+      
+    #)
+  end
+
+  def params_rent
+    params.require(:rent).permit(:facility,:idnumber,:start,:end)
+
   end
 
 end
