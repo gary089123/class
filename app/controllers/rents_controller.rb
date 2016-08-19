@@ -1,5 +1,5 @@
 class RentsController < ApplicationController
-
+  
   require 'rest-client'
   require 'json'
 
@@ -10,7 +10,7 @@ class RentsController < ApplicationController
   end
 
   def search
-    
+    @rent=Rent.find_by(idnumber: session[:idnumber]) 
   end
 
   def new 
@@ -44,12 +44,10 @@ class RentsController < ApplicationController
     
     redirect_to root_path 
   end
+  
 
-  def params_date_time params , label
-    #date = DateTime.new(
-      
-    #)
-  end
+
+  private
 
   def params_rent
     params.require(:rent).permit(:facility,:idnumber,:start,:end)

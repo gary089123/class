@@ -38,7 +38,7 @@ class OauthController < ApplicationController
     if User.find_by(idnumber:user[1])==nil
       User.create(idnumber:user[1].force_encoding('UTF-8'),name:user[5].force_encoding('UTF-8'),unit:user[9].force_encoding('UTF-8'))
     end
-
+    session[:idnumber]=user[1]
     redirect_to root_path
   end
 
