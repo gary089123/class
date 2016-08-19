@@ -33,12 +33,11 @@ class OauthController < ApplicationController
     
     url = 'http://140.115.3.188/personnel/v1/info'
     api = RestClient.get url, { 'Authorization' => 'Bearer ' + ENV['access_token']}
-
-    #if User.find_by(name:'gary')==nil
-    #  user=api.split(/[,":{}]/).reject(&:empty?)      
-    #  User.create(idnumber:user[1],name:user[5],unit:user[9])      
-    #end
-    #User.create
+    
+    user=api.split(/[,":{}]/).reject(&:empty?)
+    if User.find_by(idnumber:user[1])==nil
+      User.create(idnumber:user[1].force_encoding('UTF-8'),name:user[5].force_encoding('UTF-8'),unit:user[9].force_encoding('UTF-8'))
+    end
 
     redirect_to root_path
   end
