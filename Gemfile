@@ -51,4 +51,3 @@ gem 'jquery-ui-rails'
 
 
 
-gem 'devise'

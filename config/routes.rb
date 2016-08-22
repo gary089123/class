@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
 
-  devise_for :admins
   root 'staticpages#index'
 
 # 使用說明 與 借用狀態
