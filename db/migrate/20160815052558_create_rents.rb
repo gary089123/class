@@ -1,7 +1,7 @@
 class CreateRents < ActiveRecord::Migration
   def change
     create_table :rents do |t|
-      t.integer :idnumber
+      t.string :name
       t.integer :facility
       t.datetime :start
       t.datetime :end

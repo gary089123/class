@@ -12,7 +12,7 @@ class RentsController < ApplicationController
   end
 
   def search
-    @rent=Rent.find_by(idnumber: current_user.id)
+    @rent=Rent.where(user_id: current_user.id)
     puts current_user.name
   end
 
@@ -21,8 +21,9 @@ class RentsController < ApplicationController
   end
 
   def create
-    puts @rent = Rent.new(params_rent)
-    puts url = 'http://140.115.3.188/facility/v1/facility/'+@rent.facility.to_s+'/rent'
+    @rent = Rent.new(params_rent)
+    @rent.user_id = current_user.id
+    url = 'http://140.115.3.188/facility/v1/facility/'+@rent.facility.to_s+'/rent'
     rent = params[:rent]
     start = DateTime.new(rent["start(1i)"].to_i ,rent["start(2i)"].to_i ,rent["start(3i)"].to_i ,rent["start(4i)"].to_i, rent["start(5i)"].to_i)
     endt = DateTime.new(rent["end(1i)"].to_i ,rent["end(2i)"].to_i ,rent["end(3i)"].to_i ,rent["end(4i)"].to_i, rent["end(5i)"].to_i)
@@ -36,11 +37,11 @@ class RentsController < ApplicationController
     jdata=data.to_json
     api = RestClient.post(url,
     {
-      :name => current_user.idnumber,
+      :name => @rent.name,
       :spans => jdata,
       :access_token => ENV['access_token']
     })
-    
+    @rent.save
     redirect_to root_path 
   end
   
@@ -49,7 +50,7 @@ class RentsController < ApplicationController
   private
 
   def params_rent
-    params.require(:rent).permit(:facility,:idnumber,:start,:end)
+    params.require(:rent).permit(:facility,:name,:start,:end)
 
   end
 

@@ -1,9 +1,9 @@
 <%= form_for @rent do  |f| %>    
-    <%= f.text_field :idnumber %>
-    <%= f.radio_button :facility, '1' %> 
-    <%= f.label :facility_1, 'a' %>
-    <%= f.radio_button :facility, '2'%>
-    <%= f.label :facility_2, 'b' %>
+    <%= f.text_field :name%>
+    <%= f.radio_button :facility, '4' %> 
+    <%= f.label :facility_4, 'I202' %>
+    <%= f.radio_button :facility, '5'%>
+    <%= f.label :facility_5, 'I002' %>
     <%= f.datetime_select :start%>
     <%= f.datetime_select :end%>
     <%= f.submit %>
