@@ -1,5 +1,7 @@
 class RentsController < ApplicationController
-  
+ 
+  before_action :authenticate_user! , except: [:index]
+ 
   require 'rest-client'
   require 'json'
 
@@ -10,7 +12,8 @@ class RentsController < ApplicationController
   end
 
   def search
-    @rent=Rent.find_by(idnumber: session[:idnumber]) 
+    @rent=Rent.find_by(idnumber: current_user.id)
+    puts current_user.name
   end
 
   def new 
@@ -19,10 +22,6 @@ class RentsController < ApplicationController
 
   def create
     puts @rent = Rent.new(params_rent)
-    #puts params[:rent][:start]
-    #if params[:rent][:start]==nil
-    #  puts 'whats the fucks'
-    # end 
     puts url = 'http://140.115.3.188/facility/v1/facility/'+@rent.facility.to_s+'/rent'
     rent = params[:rent]
     start = DateTime.new(rent["start(1i)"].to_i ,rent["start(2i)"].to_i ,rent["start(3i)"].to_i ,rent["start(4i)"].to_i, rent["start(5i)"].to_i)

@@ -13,6 +13,8 @@ Rails.application.routes.draw do
   get 'oauth', :to => 'oauth#oauth'
   get 'callback', :to => 'oauth#callback'
 
+  get 'logout', :to => 'oauth#logout'
+
 # api testing
   get 'getfacility', :to => 'oauth#getfacility'
   get 'getperson', :to => 'oauth#getperson'
