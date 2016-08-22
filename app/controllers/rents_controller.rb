@@ -8,7 +8,7 @@ class RentsController < ApplicationController
   @@api_token = '7411169a651e1910e7f007c2530de6ec0594a26cd27619c3e80e8836b6456505f1e891a0f5bd3a0db1988beee701be2f5ad79e4d81f57eb2d69301584374e88d'
 
   def index
-    @rent_calendar_url = 'redli5vtl6ogmn9s9v7f37g1u4@group.calendar.google.com'   
+    @rent_calendar_url = 'rr7j9s4d5k21c4bcicn50ccpv8@group.calendar.google.com'   
   end
 
   def search
@@ -36,7 +36,7 @@ class RentsController < ApplicationController
     jdata=data.to_json
     api = RestClient.post(url,
     {
-      :name => @rent.idnumber,
+      :name => current_user.idnumber,
       :spans => jdata,
       :access_token => ENV['access_token']
     })
