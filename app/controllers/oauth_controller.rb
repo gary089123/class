@@ -37,7 +37,7 @@ class OauthController < ApplicationController
     userinfo=api.split(/[,":{}]/).reject(&:empty?)
     user = User.find_by(idnumber:userinfo[1])
     if user==nil
-      user=User.create(idnumber:userinfo[1].force_encoding('UTF-8'),name:userinfo[5].force_encoding('UTF-8'),unit:userinfo[9].force_encoding('UTF-8'))
+      user=User.create(idnumber:userinfo[1].force_encoding('UTF-8'),name:userinfo[5].force_encoding('UTF-8'),unit:userinfo[9].force_encoding('UTF-8'),privilege:1)
     end
     session[:user_id]=user.id
     puts user_signed_in?
@@ -45,7 +45,7 @@ class OauthController < ApplicationController
   end
 
   def logout
-    session[:user_id]=nil
+    session.delete(:user_id)
     
     redirect_to root_path , notice: 'logout success' 
   end
