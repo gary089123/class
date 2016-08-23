@@ -24,4 +24,7 @@ Rails.application.routes.draw do
 
 #預約 CRUD
 
+  get 'admin/vertify' ,:to => 'admin#verify'
+
+
 end
