@@ -23,7 +23,8 @@ Rails.application.routes.draw do
   get 'search', :controller => 'rents'
 
 #預約 CRUD
-
+  
+  get 'admin' , :to => 'admin#index'
   get 'admin/vertify' ,:to => 'admin#verify'
 
 

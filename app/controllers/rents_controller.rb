@@ -1,7 +1,7 @@
 class RentsController < ApplicationController
  
   before_action :authenticate_user! , except: [:index]
- 
+  befor_action :set_rent , only: [:show , :edit ,:update,:destroy]
   require 'rest-client'
   require 'json'
 
@@ -15,6 +15,23 @@ class RentsController < ApplicationController
     @rent=Rent.where(user_id: current_user.id)
     puts current_user.name
   end
+ 
+  def show
+  
+  end
+
+  def edit
+
+  end
+  
+  def update
+
+  end
+
+  def destroy
+    
+  end
+
 
   def new 
     @rent=Rent.new
@@ -48,6 +65,9 @@ class RentsController < ApplicationController
 
 
   private
+  def set_rent
+    @rent=Rent.find(params[:id])
+  end
 
   def params_rent
     params.require(:rent).permit(:facility,:name,:start,:end)

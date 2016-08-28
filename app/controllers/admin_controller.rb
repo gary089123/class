@@ -8,7 +8,12 @@ class AdminController < ApplicationController
   @@api_token = '7411169a651e1910e7f007c2530de6ec0594a26cd27619c3e80e8836b6456505f1e891a0f5bd3a0db1988beee701be2f5ad79e4d81f57eb2d69301584374e88d'
 
   def index
-    @rent = Rent.All
+    if params[:search]
+      user = User.where('name Like ? OR idnumber Like',"%#{params[:search]}%","%#{params[:search]}%" )
+      @rent = Rent.where()
+    else
+      @rent = Rent.all
+    end
   end
 
   def verify

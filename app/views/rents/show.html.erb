@@ -1,0 +1,22 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+  <strong><%= @rent.name %></strong>
+  </div>
+  <div class="panel-body">
+   <p>
+       <strong>classroom:</strong>
+       <%= @rent.facility %><br>
+       <strong>start:</strong>
+       <%= @rent.start %><br>
+       <strong>end:</strong>
+       <%= @rent.end %><br>
+
+</p>
+
+<%= link_to '編輯', edit_rent_path(@rent) %> |
+<%= link_to '返回', admin_path %>
+
+  </div>
+</div>
+</div>
+
