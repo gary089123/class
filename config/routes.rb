@@ -25,7 +25,7 @@ Rails.application.routes.draw do
 #預約 CRUD
   
   get 'admin' , :to => 'admin#index'
-  get 'admin/vertify' ,:to => 'admin#verify'
-
+  get 'admin/vertify' ,:to => 'admin#vertify'
+  get 'admin/unvertify', :to=> 'admin#unvertify'
 
 end
