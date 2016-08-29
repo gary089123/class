@@ -17,10 +17,12 @@ class AdminController < ApplicationController
   end
 
   def verify
-    url = 'http://140.115.3.188/facility/v1/rent/15/verify'
-    api = RestClient.put( url, { 'access_token'=> ENV['access_token'], 'id'=>'15', 'verify'=>true})
- redirect_to root_path 
- end
+    @rent=Rent.find(params[:format])
+    url = 'http://140.115.3.188/facility/v1/rent/'+@rent.apid.to_s+'/verify'
+    api = RestClient.put( url, { 'access_token'=> ENV['access_token'], 'id'=>@rent.apid.to_s, 'verify'=>true})
+    @rent.status="已借出"
+    redirect_to admin_path 
+  end
 
 
 
@@ -32,7 +34,5 @@ class AdminController < ApplicationController
       redirect_to root_path , notice: 'no privilege'
     end
   end
-
-
 
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160829043819) do
+ActiveRecord::Schema.define(version: 20160829054842) do
 
   create_table "rents", force: :cascade do |t|
     t.string   "name"
@@ -22,6 +22,7 @@ ActiveRecord::Schema.define(version: 20160829043819) do
     t.datetime "updated_at", null: false
     t.integer  "user_id"
     t.string   "status"
+    t.integer  "apid"
   end
 
   add_index "rents", ["user_id"], name: "index_rents_on_user_id"

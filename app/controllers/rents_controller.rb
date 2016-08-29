@@ -59,6 +59,7 @@ class RentsController < ApplicationController
       :spans => jdata,
       :access_token => ENV['access_token']
     })
+    @rent.apid = api["id"].to_i
     @rent.save
     redirect_to root_path 
   end
