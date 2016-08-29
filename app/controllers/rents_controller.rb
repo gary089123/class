@@ -63,9 +63,14 @@ class RentsController < ApplicationController
     })
     @rent.apid = api["id"].to_i
     @rent.save
-    redirect_to root_path 
+    redirect_to rent_print_path 
   end
   
+
+  def print
+    
+
+  end
 
 
   private
