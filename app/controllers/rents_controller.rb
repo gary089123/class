@@ -29,7 +29,9 @@ class RentsController < ApplicationController
   end
 
   def destroy
-    
+    url = 'http://140.115.3.188/facility/v1/facility/rent'+@rent.apid.to_s
+    api = RestClient.delete(url , {:access_token => ENV['access_token'] , :id => @rent.apid.to_s})
+    @rent.destroy
   end
 
 
