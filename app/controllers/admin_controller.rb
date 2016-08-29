@@ -9,8 +9,8 @@ class AdminController < ApplicationController
 
   def index
     if params[:search]
-      user = User.where('name Like ? OR idnumber Like',"%#{params[:search]}%","%#{params[:search]}%" )
-      @rent = Rent.where()
+      user = User.where('name Like ? OR idnumber Like ?',"%#{params[:search]}%","%#{params[:search]}%" )
+      @rent = Rent.find_by(:user_id => user.ids)
     else
       @rent = Rent.all
     end

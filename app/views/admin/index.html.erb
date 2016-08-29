@@ -9,8 +9,11 @@
 <table>
   <tbody>
     <% @rent.each do |rent| %>
+    <% user= User.find(rent.user_id)%>
       <tr>
         <td><%= rent.name %></td>
+        <td><%= rent.status %></td>
+        <td><%= user.name %></td>
         <td><%= link_to '詳細訊息', rent %></td>
         <td><%= link_to '編輯', edit_rent_path(rent) %></td>
         <td><%= link_to '刪除', rent, method: :delete, data: { confirm: 'Are you sure?' } %></td>

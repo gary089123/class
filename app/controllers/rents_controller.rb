@@ -1,7 +1,7 @@
 class RentsController < ApplicationController
  
   before_action :authenticate_user! , except: [:index]
-  befor_action :set_rent , only: [:show , :edit ,:update,:destroy]
+  before_action :set_rent , only: [:show , :edit ,:update,:destroy]
   require 'rest-client'
   require 'json'
 
@@ -40,6 +40,7 @@ class RentsController < ApplicationController
   def create
     @rent = Rent.new(params_rent)
     @rent.user_id = current_user.id
+    @rent.status = "待審核" 
     url = 'http://140.115.3.188/facility/v1/facility/'+@rent.facility.to_s+'/rent'
     rent = params[:rent]
     start = DateTime.new(rent["start(1i)"].to_i ,rent["start(2i)"].to_i ,rent["start(3i)"].to_i ,rent["start(4i)"].to_i, rent["start(5i)"].to_i)
