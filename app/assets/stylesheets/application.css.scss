@@ -104,3 +104,14 @@ footer {
   color: white; // 字的顏色
   background-color: #233140; // 背景色
 }
+
+// global jumbotron
+.container .jumbotron {
+  background-color: #fff;
+  padding: 2em; // default: 48/60
+  margin-bottom: 2em; // defult: 30
+  -webkit-box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+          box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  border-radius: 2px;
+  border: 0;
+}
