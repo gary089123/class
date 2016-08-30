@@ -30,7 +30,7 @@
         <li><%= link_to icon('search','查詢預約'), search_path %></li>
         <%if user_signed_in?%>
           <%if current_user.privilege==2%>
-            <li><%= link_to'admin', admin_path%></li>
+            <li><%= link_to 'Admin', admin_path %></li>
           <%end%>
           <li><%= link_to icon('sign-out','登出'), logout_path %></li>
         <%else%>
