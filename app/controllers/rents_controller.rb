@@ -13,7 +13,6 @@ class RentsController < ApplicationController
 
   def search
     @rent=Rent.where(user_id: current_user.id)
-    puts current_user.name
   end
  
   def show
@@ -29,6 +28,7 @@ class RentsController < ApplicationController
   end
 
   def destroy
+    puts @rent.apid
     url = 'http://140.115.3.188/facility/v1/facility/rent'+@rent.apid.to_s
     api = RestClient.delete(url , {:access_token => ENV['access_token'] , :id => @rent.apid.to_s})
     @rent.destroy
@@ -61,7 +61,9 @@ class RentsController < ApplicationController
       :spans => jdata,
       :access_token => ENV['access_token']
     })
-    @rent.apid = api["id"].to_i
+    japi=JSON.parse(api)
+    puts japi["id"]
+    @rent.apid = japi["id"].to_i
     @rent.save
     redirect_to rent_print_path 
   end

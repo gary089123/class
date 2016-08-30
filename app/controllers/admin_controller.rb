@@ -19,6 +19,7 @@ class AdminController < ApplicationController
   def vertify
     @rent=Rent.find(params[:format])
     url = 'http://140.115.3.188/facility/v1/rent/'+@rent.apid.to_s+'/verify'
+    puts url
     api = RestClient.put( url, { 'access_token'=> ENV['access_token'], 'id'=>@rent.apid.to_s, 'verify'=>true})
     @rent.status="已借出"
     @rent.save
@@ -28,6 +29,7 @@ class AdminController < ApplicationController
   def unvertify
     @rent=Rent.find(params[:format])
     url = 'http://140.115.3.188/facility/v1/rent/'+@rent.apid.to_s+'/verify'
+    puts url
     api = RestClient.put( url, { 'access_token'=> ENV['access_token'], 'id'=>@rent.apid.to_s, 'verify'=>false})
     @rent.status="待審核"
     @rent.save
