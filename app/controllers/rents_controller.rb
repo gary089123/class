@@ -82,7 +82,9 @@ class RentsController < ApplicationController
     else
       @rent=Rent.find(params[:format])
     end
+    puts @rent.user_id
     @user=User.find(@rent.user_id)
+    puts @user.name
   end
 
 

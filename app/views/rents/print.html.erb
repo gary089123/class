@@ -4,6 +4,8 @@
   </div>
   <div class="panel-body">
    <p>
+       <strong>借用人:</strong>
+       <%= @user.name%><br>
        <strong>教室:</strong>
        <% rent={'4'=>'I202','5'=>'I210' , '6'=>'I002'}%>
        <%= rent[@rent.facility.to_s] %><br>
