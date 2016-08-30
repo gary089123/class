@@ -4,10 +4,10 @@
 ## 文件
 
 註冊API: [140.115.3.118](http://140.115.3.188:8080/manage) / [140.115.3.97(api.cc.ncu.edu.tw)](https://api.cc.ncu.edu.tw/manage/)  
-OAUTH: [GitHub](https://github.com/NCU-CC/API-Documentation/tree/master/oauth-service)  
+OAUTH: [NCU-CC/API-Documentation/tree/master/oauth-service](https://github.com/NCU-CC/API-Documentation/tree/master/oauth-service)  
 OAuth Scope: `facility.rent.read` `facility.rent.write` `facility.rent.verify` `facility.manage`  
-借教室API: [API](http://tatsujin.m.candytan.org/facility/doc/) or [API](http://tatsujin.asia/facility/doc/)  
-其他API文件: [GitHub](https://github.com/NCU-CC/API-Documentation)  
+借教室API: [http://tatsujin.m.candytan.org/facility/doc/](http://tatsujin.m.candytan.org/facility/doc/) or [http://tatsujin.asia/facility/doc/](http://tatsujin.asia/facility/doc/)  
+其他API文件:[NCU-CC/API-Documentation](https://github.com/NCU-CC/API-Documentation)  
 
 
 ## 版本
