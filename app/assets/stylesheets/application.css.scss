@@ -144,13 +144,13 @@ $colHighlight   : #dddfff;
 
 // footer
 footer {
-  padding: 2em 0 3.5em 0;
+  padding: 1em 0;
   color: white; // 字的顏色
   background-color: #233140; // 背景色
 }
 @media (max-width:991px){
   footer {
-    padding: 2em 0 4.5em 0;
+    padding: 0;
   }
 }
 
