@@ -38,7 +38,10 @@ footer {
 /* 主要設定區 背景色 白字 */
 .navbar-default {
   font-size: 1.15em;
-  letter-spacing: 4px;
+  letter-spacing: 2px;
+  a {
+    cursor: pointer;
+  }
 }
 
 // navbar color ref:
