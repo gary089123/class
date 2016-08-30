@@ -18,6 +18,11 @@ body {
 .leftdown {
     padding: 40px 15px;
 }
+@media (max-width:991px){
+  .leftdown {
+      padding-top: 0;
+  }
+}
 
 // footer的位置
 html {
@@ -104,6 +109,11 @@ footer {
   color: white; // 字的顏色
   background-color: #233140; // 背景色
 }
+@media (max-width:991px){
+  footer {
+    padding: 2em 0 4.5em 0;
+  }
+}
 
 // global jumbotron
 .container .jumbotron {
@@ -114,4 +124,7 @@ footer {
           box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   border-radius: 2px;
   border: 0;
+  h2 {
+    color: $bgDefault;
+  }
 }
