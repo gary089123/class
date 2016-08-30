@@ -1,4 +1,41 @@
-<div class="col-md-10 col-md-offset-1">
+<div class="container">
+  <div class="jumbotron">
+    <h2><i class="fa fa-search"></i> 查詢預約</h2>
+    <p>
+      預約完成後請<mark>列印申請單</mark>送到電算中心<br>
+      這裡會列出您所有的預約<br>
+    </p>
+  </div>
+  <div class="row">
+    <div class="col-md-10 col-md-offset-1">
+      <h3>您的預約：</h3>
+      <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>教室借用</th>
+          <th>狀態</th>
+          <th>借用人</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @rent.each do |rent| %>
+        <% user= User.find(rent.user_id)%>
+          <tr>
+            <td class="col-md-2"><%= rent.name %></td>
+            <td class="col-md-2"><%= rent.status %></td>
+            <td class="col-md-2"><%= user.name %></td>
+            <td class="col-md-1"><%= link_to '詳細訊息', rent %></td>
+            <%if rent.status=='待審核'%>
+            <td class="col-md-1"><%= link_to '刪除', rent, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            <%end%>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    </div>
+  </div>
+</div>
+<!-- <div class="col-md-10 col-md-offset-1">
 <div class="panel panel-default">
   <div class="panel-body">
   <table class="table table-striped">
@@ -30,10 +67,7 @@
     <% end %>
   </tbody>
 </table>
-
 </div>
-  </div>
-
-
+</div>
 <br>
-</div>
+</div> -->

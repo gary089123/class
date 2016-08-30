@@ -1,4 +1,44 @@
-<div class="col-md-10 col-md-offset-1">
+<div class="container">
+  <div class="jumbotron">
+    <h2><i class="fa fa-user"></i> 後台管理</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-10 col-md-offset-1">
+      <%= form_tag admin_path, method: :get do %>
+          <%= text_field_tag :search, params[:search], placeholder: "學號或姓名" %>
+          <%= submit_tag "搜尋", name: nil %>
+      <% end %><br>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>教室借用</th>
+            <th>狀態</th>
+            <th>借用人</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @rent.each do |rent| %>
+          <% user= User.find(rent.user_id)%>
+            <tr>
+              <td class="col-md-2"><%= rent.name %></td>
+              <td class="col-md-2"><%= rent.status %></td>
+              <td class="col-md-2"><%= user.name %></td>
+              <td class="col-md-1"><%= link_to '詳細訊息', rent %></td>
+              <td class="col-md-1"><%= link_to '編輯', edit_rent_path(rent) %></td>
+              <%if rent.status=="待審核"%>
+              <td class="col-md-1"><%= link_to '審核', admin_vertify_path(rent) %></td>
+              <%else%>
+              <td class="col-md-1"><%= link_to '取消審核', admin_unvertify_path(rent) %></td>
+              <%end%>
+              <td class="col-md-1"><%= link_to '刪除', rent, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<!-- <div class="col-md-10 col-md-offset-1">
 <%= form_tag admin_path, method: :get do %>
     <%= text_field_tag :search, params[:search], placeholder: "學號或姓名" %>
     <%= submit_tag "搜尋", name: nil %>
@@ -12,12 +52,10 @@
       <th>No</th>
       <th>教室借用</th>
       <th>狀態</th>
-      <th>借用人</th> 
-      
+      <th>借用人</th>
+
     </tr>
   </thead>
-
-
   <tbody>
     <% @rent.each do |rent| %>
     <% user= User.find(rent.user_id)%>
@@ -41,8 +79,5 @@
 
 </div>
   </div>
-
-
 <br>
-</div>
-
+</div> -->
