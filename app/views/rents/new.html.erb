@@ -1,10 +1,73 @@
-<%= form_for @rent do  |f| %>    
+<div class="container">
+  <div class="jumbotron">
+    <h2><i class="fa fa-paper-plane"></i> 填寫預約詳細內容</h2>
+    <p>
+      請先確認資料無誤再送出<br>
+      預約完成後請列印申請單送到電算中心<br>
+    </p>
+  </div>
+  <div class="row">
+    <div class="col-md-9 col-md-offset-1">
+      <h3>借用填寫：</h3>
+      <%= form_for @rent do  |f| %>
+        <div class="form-group">
+          <label for="rent_name">借用名稱: </label>
+          <%= f.text_field :name, :class => "form-control", :placeholder => "例如：計算機實習" %>
+        </div>
+        <div class="form-group">
+          <label for="rent_name">借用教室: </label>
+          <%= f.radio_button :facility, '4' %>
+          <%= f.label :facility_4, 'I202' %>
+          <%= f.radio_button :facility, '5'%>
+          <%= f.label :facility_5, 'I002' %>
+        </div>
+        <div class="form-group">
+          <label for="rent_name">借用時段: </label>
+          <%= f.datetime_select :start%>
+          <%= f.datetime_select :end%>
+        </div>
+        <%= f.submit '送出預約', :class => "btn btn-danger btn-lg btn-block", :role => "button" %>
+      <% end %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-9 col-md-offset-1">
+      <h3>已借出的教室：</h3>
+      <ul class="nav nav-tabs">
+        <li class="active"><a data-toggle="tab" href="#rent-202">I202</a></li>
+        <li><a data-toggle="tab" href="#rent-002">I002</a></li>
+        <li><a data-toggle="tab" href="#rent-210">I210</a></li>
+      </ul><br>
+      <div class="tab-content">
+        <div id="rent-202" class="tab-pane fade in active">
+          <iframe
+          src="https://calendar.google.com/calendar/embed?height=600&amp;wkst=1&amp;bgcolor=%23FFFFFF&amp;src=<%= @rent_202 %>&amp;color=%23125A12"
+          style="border-width:0" width="100%" height="600" frameborder="0" scrolling="no">
+          </iframe>
+        </div>
+        <div id="rent-002" class="tab-pane fade">
+          <iframe
+          src="https://calendar.google.com/calendar/embed?height=600&amp;wkst=1&amp;bgcolor=%23FFFFFF&amp;src=<%= @rent_002 %>&amp;color=%23125A12"
+          style="border-width:0" width="100%" height="600" frameborder="0" scrolling="no">
+          </iframe>
+        </div>
+        <div id="rent-210" class="tab-pane fade">
+          <iframe
+          src="https://calendar.google.com/calendar/embed?height=600&amp;wkst=1&amp;bgcolor=%23FFFFFF&amp;src=<%= @rent_210 %>&amp;color=%23125A12"
+          style="border-width:0" width="100%" height="600" frameborder="0" scrolling="no">
+          </iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- <%= form_for @rent do  |f| %>
     <%= f.text_field :name%>
-    <%= f.radio_button :facility, '4' %> 
+    <%= f.radio_button :facility, '4' %>
     <%= f.label :facility_4, 'I202' %>
     <%= f.radio_button :facility, '5'%>
     <%= f.label :facility_5, 'I002' %>
     <%= f.datetime_select :start%>
     <%= f.datetime_select :end%>
     <%= f.submit %>
-<% end %>
+<% end %> -->
