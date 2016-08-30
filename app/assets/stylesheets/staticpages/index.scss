@@ -1,6 +1,4 @@
-// Place all the styles related to the staticpages controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+// staticpages#index
 
 $index-primary: #2C3E50;
 
@@ -10,7 +8,10 @@ section {
 .section-heading {
   margin-top: 0;
 }
-
+hr {
+  max-width: 50px;
+  border-width: 3px !important;
+}
 #about {
   .row {
     padding: 40px 0;
@@ -19,26 +20,42 @@ section {
   }
   hr {
     border-color: white;
-    border-width: 3px;
-    max-width: 50px;
   }
 }
 #services {
   hr {
     border-color: $index-primary;
-    border-width: 3px;
-    max-width: 50px;
   }
   .text-primary {
     color: $index-primary;
   }
+  a {
+    text-decoration: none;
+  }
   .service-box {
     max-width: 400px;
     margin: 50px auto 0;
+    padding: 2em;
+    h3 {
+      color: $index-primary;
+    }
+  }
+  @media (max-width:991px){
+    .service-box {
+      border-style: outset;
+      border-color: $index-primary;
+    }
   }
   @media (min-width: 992px) {
     .service-box {
       margin: 20px auto 0;
+    }
+    .service-box:hover {
+      cursor: pointer;
+      background-color: rgba(35, 49, 64, 0.1);
+      transition: all ease 0.7s;
+      -webkit-transition: all ease 0.7s;
+      -moz-transition: all ease 0.7s;
     }
   }
   .service-box p {
