@@ -9,6 +9,7 @@
   <table class="table table-striped">
   <thead>
     <tr>
+      <th>No</th>
       <th>教室借用</th>
       <th>狀態</th>
       <th>借用人</th> 
@@ -21,6 +22,7 @@
     <% @rent.each do |rent| %>
     <% user= User.find(rent.user_id)%>
       <tr>
+        <td class="col-md-1"><%= rent.id%></td>
         <td class="col-md-2"><%= rent.name %></td>
         <td class="col-md-2"><%= rent.status %></td>
         <td class="col-md-2"><%= user.name %></td>

@@ -71,13 +71,18 @@ class RentsController < ApplicationController
     puts japi["id"]
     @rent.apid = japi["id"].to_i
     @rent.save
+    params[:format]=nil
     redirect_to rent_print_path
   end
 
 
   def print
-    @rent=Rent.last
-    
+    if params[:format]==nil
+      @rent=Rent.last
+    else
+      @rent=Rent.find(params[:format])
+    end
+    @user=User.find(@rent.user_id)
   end
 
 

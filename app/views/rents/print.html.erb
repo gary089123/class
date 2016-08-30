@@ -1,0 +1,30 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+  <strong><%='No.'+@rent.id.to_s+'_'+ @rent.name %></strong>
+  </div>
+  <div class="panel-body">
+   <p>
+       <strong>教室:</strong>
+       <% rent={'4'=>'I202','5'=>'I210' , '6'=>'I002'}%>
+       <%= rent[@rent.facility.to_s] %><br>
+       <strong>開始時間:</strong>
+       <%= @rent.start %><br>
+       <strong>結束時間:</strong>
+       <%= @rent.end %><br>
+
+       <strong>狀態:</strong>
+       <%= @rent.status%><br>
+
+</p>
+
+<%=link_to "列印", '#', onclick: "printpage()" %>
+<script>
+  function printpage()
+    {
+      window.print()
+    }
+</script>
+  </div>
+</div>
+</div>
+
