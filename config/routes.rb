@@ -21,7 +21,7 @@ Rails.application.routes.draw do
 # 預約
   resources :rents
   get 'search', :controller => 'rents'
-  get 'rent/print' ,:to => 'rents#print'
+  get 'rents/print' ,:to => 'rents#print'
 
 #預約 CRUD
   

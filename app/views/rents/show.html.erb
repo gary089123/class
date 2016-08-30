@@ -4,12 +4,16 @@
   </div>
   <div class="panel-body">
    <p>
-       <strong>classroom:</strong>
-       <%= @rent.facility %><br>
-       <strong>start:</strong>
+       <strong>教室:</strong>
+       <% rent={'4'=>'I202','5'=>'I210' , '6'=>'I002'}%>
+       <%= rent[@rent.facility.to_s] %><br>
+       <strong>開始時間:</strong>
        <%= @rent.start %><br>
-       <strong>end:</strong>
+       <strong>結束時間:</strong>
        <%= @rent.end %><br>
+
+       <strong>狀態:</strong>
+       <%= @rent.status%><br>
 
 </p>
 
