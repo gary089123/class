@@ -13,6 +13,11 @@
       <h3>一般借用流程：</h3>
       <ol id="iwantrent">
         <li>
+          詳閱本
+          <%= link_to icon('calendar-o','使用說明'), pages_status_path , :class => "btn btn-danger btn-sm"%>
+          。
+        </li>
+        <li>
           請先到
           <%= link_to icon('calendar-o','借用狀態'), pages_status_path , :class => "btn btn-info btn-sm"%>
           確認欲借用的時段無人預約。
@@ -25,7 +30,9 @@
         <li>將申請單送繳電算中心辦公室<mark>交給戴先生</mark>，待中心確認無誤後，才會將該借用課程核可。</li>
         <li>
           核可後，借用者可至
-          <%= link_to icon('search','查詢預約'), search_path , :class => "btn btn-danger btn-sm"%>
+          <%= link_to icon('search','查詢預約'), search_path , :class => "btn btn-primary btn-sm"%>
+          或
+          <%= link_to icon('calendar-o','借用狀態'), pages_status_path , :class => "btn btn-info btn-sm"%>
           查詢是否核可。
         </li>
       </ol>
