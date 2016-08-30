@@ -15,6 +15,9 @@ class RentsController < ApplicationController
 
   def search
     @rent=Rent.where(user_id: current_user.id)
+    url = 'http://140.115.3.188/facility/v1/facility/6'
+    api=RestClient.put(url, {:access_token => ENV['access_token'],:id => '6', :name =>'I002' , :description => 'I002'})
+
   end
 
   def show
@@ -32,7 +35,7 @@ class RentsController < ApplicationController
   def destroy
     puts @rent.apid
     url = 'http://140.115.3.188/facility/v1/facility/rent'+@rent.apid.to_s
-    api = RestClient.delete(url , {:access_token => ENV['access_token'] , :id => @rent.apid.to_s})
+    api = RestClient.delete(url , { :Authorization => ENV['access_token'] , 'id' => @rent.apid.to_s})
     @rent.destroy
   end
 
