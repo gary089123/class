@@ -1,0 +1,106 @@
+/*
+ *= require jquery-ui
+ *= require_tree .
+ *= require_self
+ */
+
+@import "bootstrap-sprockets";
+@import "bootstrap";
+@import "font-awesome-sprockets";
+@import "font-awesome";
+
+// 為了navbar留的
+body {
+    padding-top: 50px;
+}
+
+// container之後 padding左跟上
+.leftdown {
+    padding: 40px 15px;
+}
+
+// footer的位置
+html {
+    min-height: 100%;
+    position: relative;
+}
+body {
+    margin-bottom: 50px;
+}
+footer {
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    height: 50px;
+}
+
+// navbar
+/* 主要設定區 背景色 白字 */
+.navbar-default {
+  font-size: 1.15em;
+  letter-spacing: 2px;
+  a {
+    cursor: pointer;
+  }
+}
+
+// navbar color ref:
+// http://stackoverflow.com/questions/18529274/change-navbar-color-in-twitter-bootstrap-3
+$bgDefault      : #233140;
+$bgHighlight    : rgba(255, 255, 255, 0.1);
+$colDefault     : #ecf0f1;
+$colHighlight   : #dddfff;
+.navbar-default {
+  background-color: $bgDefault;
+  border-color: $bgHighlight;
+  .navbar-brand {
+    color: $colDefault;
+    &:hover, &:focus {
+      color: $colHighlight; }}
+  .navbar-text {
+    color: $colDefault; }
+  .navbar-nav {
+    > li {
+      > a {
+        color: $colDefault;
+        &:hover,  &:focus {
+          color: $colHighlight; }}}
+    > .active {
+      > a, > a:hover, > a:focus {
+        color: $colHighlight;
+        background-color: $bgHighlight; }}
+    > .open {
+      > a, > a:hover, > a:focus {
+        color: $colHighlight;
+        background-color: $bgHighlight; }}}
+  .navbar-toggle {
+    border-color: $bgHighlight;
+    &:hover, &:focus {
+      background-color: $bgHighlight; }
+    .icon-bar {
+      background-color: $colDefault; }}
+  .navbar-collapse,
+  .navbar-form {
+    border-color: $colDefault; }
+  .navbar-link {
+    color: $colDefault;
+    &:hover {
+      color: $colHighlight; }}}
+@media (max-width: 767px) {
+  .navbar-default .navbar-nav .open .dropdown-menu {
+    > li > a {
+      color: $colDefault;
+      &:hover, &:focus {
+        color: $colHighlight; }}
+    > .active {
+      > a, > a:hover, > a:focus, {
+        color: $colHighlight;
+        background-color: $bgHighlight; }}}
+}
+
+// footer
+footer {
+  padding: 2em 0 3.5em 0;
+  color: white; // 字的顏色
+  background-color: #233140; // 背景色
+}

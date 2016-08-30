@@ -1,11 +1,83 @@
-<%= link_to 'Login', oauth_path %>
-<br><br>
+<section id="about">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2 text-center">
+                <h2 class="section-heading">歡迎來到電算中心教室借用系統</h2>
+                <hr>
+                <p class="text-faded">本系統僅供電算中心教室借用，使用本系統前請先登入(需有Portal帳號)並閱讀使用說明</p>
+                <% if user_signed_in? %>
+                  <%= link_to icon('paper-plane','立即預約'), rents_path , :class => "btn btn-success"%>
+                <% else %>
+                  <%= link_to icon('sign-in','登入'), oauth_path , :class => "btn btn-success"%>
+                <% end %>
+                <%= link_to icon('book','前往使用說明'), pages_readme_path , :class => "btn btn-danger"%>
+            </div>
+        </div>
+    </div>
+</section>
+<br>
+<section id="services">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <h2 class="section-heading">關於教室借用系統</h2>
+                <hr>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3 col-sm-6 text-center">
+              <%= link_to pages_readme_path do %>
+                <div class="service-box">
+                    <i class="fa fa-4x fa-book text-primary"></i>
+                    <h3>使用說明</h3>
+                    <p class="text-muted">詳細的使用教學。</p>
+                </div>
+              <% end %>
+            </div>
+            <div class="col-md-3 col-sm-6 text-center">
+              <%= link_to pages_status_path do %>
+                <div class="service-box">
+                    <i class="fa fa-4x fa-calendar text-primary"></i>
+                    <h3>借用狀態</h3>
+                    <p class="text-muted">查看所有已被預約但還在等待管理員審核的教室。</p>
+                </div>
+              <% end %>
+            </div>
+            <div class="col-md-3 col-sm-6 text-center">
+              <%= link_to rents_path do %>
+                <div class="service-box">
+                    <i class="fa fa-4x fa-paper-plane text-primary"></i>
+                    <h3>預約</h3>
+                    <p class="text-muted">你可以在這裡看到哪些教室已經被借走了，並預約想要的教室。</p>
+                </div>
+              <% end %>
+            </div>
+            <div class="col-md-3 col-sm-6 text-center">
+              <%= link_to search_path do %>
+                <div class="service-box">
+                    <i class="fa fa-4x fa-search text-primary"></i>
+                    <h3>查詢預約</h3>
+                    <p class="text-muted">查看自己已經預約了哪些教室。</p>
+                </div>
+              <% end %>
+            </div>
+        </div>
+    </div>
+</section>
 
-<div>
-    ENV['access_token']: <%= ENV['access_token'] %>
+<div class="container">
+<div class="row">
+  <div class="col-md-12">
+    <br><br>
+    <div style="word-break: break-all;">
+        ENV['access_token']: <%= ENV['access_token'] %>
+    </div>
+    <br>
+    <%= link_to 'GET  /facility/{id}  (id=1)', getfacility_path %>
+    <br>
+    <%= link_to 'GET  /info ', getperson_path %>
+  </div>
 </div>
-<br>
-
-<%= link_to 'GET  /facility/{id}  (id=1)', getfacility_path %>
-<br>
-<%= link_to 'GET  /info ', getperson_path %>
+</div>

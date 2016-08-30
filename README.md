@@ -16,9 +16,10 @@ Ruby version: `ruby 2.3.1p112 (2016-04-26 revision 54768) [x86_64-darwin15]`
 
 ## Gems
 
-rest-client: [GitHub](https://github.com/rest-client/rest-client)  
-bootstrap-sass: [GitHub](https://github.com/twbs/bootstrap-sass)
-jquery-ui-rails: [GitHub](https://github.com/joliss/jquery-ui-rails)
+[rest-client](https://github.com/rest-client/rest-client)  
+[bootstrap-sass](https://github.com/twbs/bootstrap-sass)  
+[jquery-ui-rails](https://github.com/joliss/jquery-ui-rails)  
+[font-awesome-sass](https://github.com/FortAwesome/font-awesome-sass)
 
 ## Reference
 
