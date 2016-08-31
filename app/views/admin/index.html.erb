@@ -24,7 +24,6 @@
               <td class="col-md-2"><%= rent.status %></td>
               <td class="col-md-2"><%= user.name %></td>
               <td class="col-md-1"><%= link_to '詳細訊息', rent %></td>
-              <td class="col-md-1"><%= link_to '編輯', edit_rent_path(rent) %></td>
               <%if rent.status=="待審核"%>
               <td class="col-md-1"><%= link_to '審核', admin_vertify_path(rent) %></td>
               <%else%>

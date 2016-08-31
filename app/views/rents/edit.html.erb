@@ -1,0 +1,41 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-10 col-md-offset-1">
+      <h3>借用編輯：</h3>
+      <%= form_for @rent do  |f| %>
+        <div class="form-group">
+          <label for="rent_name">借用名稱: </label>
+          <%= f.text_field :name, :class => "form-control", :placeholder => "例如：計算機實習" %>
+        </div>
+        <div class="form-group">
+          <label for="rent_name">借用教室: </label>
+          <%= f.radio_button :facility, '4' %>
+          <%= f.label :facility_4, 'I202' %>
+          <%= f.radio_button :facility, '6'%>
+          <%= f.label :facility_6, 'I002' %>
+          <%= f.radio_button :facility, '5'%>
+          <%= f.label :facility_5, 'I210' %>
+
+        </div>
+        <div class="form-group">
+          <label for="rent_name">借用時段: </label>
+          <%= f.datetime_select :start%>
+          <%= f.datetime_select :end%>
+        </div>
+        <%= f.submit '編輯預約', :class => "btn btn-danger btn-lg btn-block", :role => "button" %>
+      <% end %>
+    </div>
+  </div>
+</div>
+<!-- <%= form_for @rent do  |f| %>
+    <%= f.text_field :name%>
+    <%= f.radio_button :facility, '4' %>
+    <%= f.label :facility_4, 'I202' %>
+    <%= f.radio_button :facility, '5'%>
+    <%= f.label :facility_5, 'I210' %>
+    <%= f.radio_button :facility, '6'%>
+    <%= f.label :facility_6, 'I002' %>
+    <%= f.datetime_select :start%>
+    <%= f.datetime_select :end%>
+    <%= f.submit %>
+<% end %> -->
