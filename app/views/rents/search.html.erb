@@ -14,6 +14,7 @@
         <tr>
           <th>流水號</th>
           <th>教室借用</th>
+          <th>教室</th>
           <th>狀態</th>
           <th>借用人</th>
           <th>詳細資料</th>
@@ -27,6 +28,8 @@
           <tr>
             <td><%= rent.id %></td>
             <td><%= rent.name %></td>
+            <%rentc={'4'=>'I202','5'=>'I210','6'=>'I002'}%>
+            <td><%= rentc[rent.facility.to_s]%></td>
             <td><%= rent.status %></td>
             <td><%= user.name %></td>
             <!-- <td><%= link_to '詳細訊息', rent %></td> -->
