@@ -32,7 +32,7 @@
             <td><%= rentc[rent.facility.to_s]%></td>
             <td><%= rent.status %></td>
             <td><%= user.name %></td>
-            <!-- <td><%= link_to '詳細訊息', rent %></td> -->
+            <%#舊的show.html.erb link_to '詳細訊息', rent %>
             <td><a href="#" data-toggle="modal" data-target="#rent<%= rent.id %>">詳細資料</a></td>
             <%if rent.status=='待審核'%>
             <td><%= link_to '列印頁面', rent_print_path(rent)=%>
