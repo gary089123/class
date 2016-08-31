@@ -13,7 +13,7 @@ class StaticpagesController < ApplicationController
     @vertify_002 = ENV['vertify_002']
     @rent_202 = ENV['rent_202']
     @rent_210 = ENV['rent_210']
-    @rent_002 = ENV['rent_210']
+    @rent_002 = ENV['rent_002']
   end
 
 end

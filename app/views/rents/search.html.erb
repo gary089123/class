@@ -12,65 +12,58 @@
       <table class="table table-striped">
       <thead>
         <tr>
-          <th>No</th>
+          <th>流水號</th>
           <th>教室借用</th>
           <th>狀態</th>
           <th>借用人</th>
+          <th>詳細資料</th>
+          <th>列印</th>
+          <th>操作</th>
         </tr>
       </thead>
       <tbody>
         <% @rent.each do |rent| %>
         <% user= User.find(rent.user_id)%>
           <tr>
-            <td class="col-md-1"><%= rent.id %></td>
-            <td class="col-md-2"><%= rent.name %></td>
-            <td class="col-md-2"><%= rent.status %></td>
-            <td class="col-md-2"><%= user.name %></td>
-            <td class="col-md-1"><%= link_to '詳細訊息', rent %></td>
+            <td><%= rent.id %></td>
+            <td><%= rent.name %></td>
+            <td><%= rent.status %></td>
+            <td><%= user.name %></td>
+            <!-- <td><%= link_to '詳細訊息', rent %></td> -->
+            <td><a href="#" data-toggle="modal" data-target="#rent<%= rent.id %>">詳細資料</a></td>
             <%if rent.status=='待審核'%>
-            <td class="col-md-1"><%= link_to '列印', rent_print_path(rent)=%>
-            <td class="col-md-1"><%= link_to '刪除', rent, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            <td><%= link_to '列印頁面', rent_print_path(rent)=%>
+            <td><%= link_to '刪除', rent, method: :delete, data: { confirm: 'Are you sure?' } %></td>
             <%end%>
           </tr>
+          <!-- Modal -->
+          <div id="rent<%= rent.id %>" class="modal fade" role="dialog">
+            <div class="modal-dialog modal-sm">
+              <!-- Modal content-->
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  <h4 class="modal-title"><%= rent.name %></h4>
+                </div>
+                <div class="modal-body">
+                  <p>事由：<%= rent.name %></p>
+                  <% rents={'4'=>'I202','5'=>'I210' , '6'=>'I002'}%>
+                  <p>教室：<%= rents[rent.facility.to_s] %></p>
+                  <p>借用人：<%= user.name %></p>
+                  <p>開始時間：<%= rent.start %></p>
+                  <p>結束時間：<%= rent.end %></p>
+                  <p>狀態：<%= rent.status %></p>
+                </div>
+                <div class="modal-footer">
+                  <%= link_to '編輯', edit_rent_path(rent), :class => "btn btn-default" %>
+                  <button type="button" class="btn btn-default" data-dismiss="modal">關閉</button>
+                </div>
+              </div>
+            </div>
+          </div>
         <% end %>
       </tbody>
     </table>
     </div>
   </div>
 </div>
-<!-- <div class="col-md-10 col-md-offset-1">
-<div class="panel panel-default">
-  <div class="panel-body">
-  <table class="table table-striped">
-  <thead>
-    <tr>
-      <th>No</th>
-      <th>教室借用</th>
-      <th>狀態</th>
-      <th>借用人</th>
-
-    </tr>
-  </thead>
-
-
-  <tbody>
-    <% @rent.each do |rent| %>
-    <% user= User.find(rent.user_id)%>
-      <tr>
-        <td class="col-md-1"><%= rent.id%></td>
-        <td class="col-md-2"><%= rent.name %></td>
-        <td class="col-md-2"><%= rent.status %></td>
-        <td class="col-md-2"><%= user.name %></td>
-        <td class="col-md-1"><%= link_to '詳細訊息', rent %></td>
-        <%if rent.status=='待審核'%>
-        <td class="col-md-1"><%= link_to '列印' , rent_print_path(rent)%>
-        <td class="col-md-1"><%= link_to '刪除', rent, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-        <%end%>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-</div>
-</div>
-<br>
-</div> -->
