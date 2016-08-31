@@ -27,6 +27,28 @@ class RentsController < ApplicationController
   end
 
   def update
+    @rent.update(params_rent)
+    puts @rent.apid
+    url = 'http://140.115.3.188/facility/v1/facility/rent'+@rent.apid.to_s
+    rent = params[:rent]
+    start = DateTime.new(rent["start(1i)"].to_i ,rent["start(2i)"].to_i ,rent["start(3i)"].to_i ,rent["start(4i)"].to_i, rent["start(5i)"].to_i)
+    endt = DateTime.new(rent["end(1i)"].to_i ,rent["end(2i)"].to_i ,rent["end(3i)"].to_i ,rent["end(4i)"].to_i, rent["end(5i)"].to_i)
+
+    data = [
+      {
+        :start => start,
+        :end => endt
+      }
+    ]
+    jdata=data.to_json
+    api = RestClient.put(url,
+    {
+      :id => @rent.apid.to_s,
+      :name => @rent.name,
+      :spans => jdata,
+      :access_token => ENV['access_token']
+    })
+    redirect_to :back
 
   end
 
@@ -82,7 +104,9 @@ class RentsController < ApplicationController
     else
       @rent=Rent.find(params[:format])
     end
+    puts @rent.user_id
     @user=User.find(@rent.user_id)
+    puts @user.name
   end
 
 
