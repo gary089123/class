@@ -53,10 +53,11 @@ class RentsController < ApplicationController
   end
 
   def destroy
-    puts @rent.apid
-    url = 'http://140.115.3.188/facility/v1/facility/rent'+@rent.apid.to_s
-    api = RestClient.delete(url , { :Authorization => ENV['access_token'] , 'id' => @rent.apid.to_s})
+    puts @rent.facility
+    url = 'http://140.115.3.188/facility/v1/rent/'+@rent.apid.to_s+'?access_token='+ENV['access_token']
+    api = RestClient.delete(url , {})
     @rent.destroy
+    redirect_to admin_path
   end
 
 
