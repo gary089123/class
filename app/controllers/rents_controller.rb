@@ -29,7 +29,7 @@ class RentsController < ApplicationController
   def update
     @rent.update(params_rent)
     puts @rent.apid
-    url = 'http://140.115.3.188/facility/v1/facility/rent'+@rent.apid.to_s
+    url = 'http://140.115.3.188/facility/v1/rent/'+@rent.apid.to_s
     rent = params[:rent]
     start = DateTime.new(rent["start(1i)"].to_i ,rent["start(2i)"].to_i ,rent["start(3i)"].to_i ,rent["start(4i)"].to_i, rent["start(5i)"].to_i)
     endt = DateTime.new(rent["end(1i)"].to_i ,rent["end(2i)"].to_i ,rent["end(3i)"].to_i ,rent["end(4i)"].to_i, rent["end(5i)"].to_i)
@@ -48,15 +48,16 @@ class RentsController < ApplicationController
       :spans => jdata,
       :access_token => ENV['access_token']
     })
-    redirect_to :back
+    redirect_to rent_print_path
 
   end
 
   def destroy
-    puts @rent.apid
-    url = 'http://140.115.3.188/facility/v1/facility/rent'+@rent.apid.to_s
-    api = RestClient.delete(url , { :Authorization => ENV['access_token'] , 'id' => @rent.apid.to_s})
+    puts @rent.facility
+    url = 'http://140.115.3.188/facility/v1/rent/'+@rent.apid.to_s+'?access_token='+ENV['access_token']
+    api = RestClient.delete(url , {})
     @rent.destroy
+    redirect_to :back
   end
 
 
