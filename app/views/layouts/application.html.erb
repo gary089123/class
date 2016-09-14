@@ -32,7 +32,7 @@
           <%if current_user.privilege==2%>
             <li><%= link_to 'Admin', admin_path %></li>
           <%end%>
-          <li><%= link_to icon('sign-out','登出'), logout_path %></li>
+          <li><%= link_to icon('sign-out',current_user.name+',登出'), logout_path %></li>
         <%else%>
           <li><%= link_to icon('sign-in','登入'), oauth_path %><li>
         <%end%>
