@@ -24,4 +24,5 @@ Ruby version: `ruby 2.3.1p112 (2016-04-26 revision 54768) [x86_64-darwin15]`
 ## Reference
 
 layout copy from: [Bootstrap](http://getbootstrap.com/examples/starter-template/)  
-Google日歷: [Google Calendar Embed Helper](https://calendar.google.com/calendar/embedhelper)
+Google日歷: [Google Calendar Embed Helper](https://calendar.google.com/calendar/embedhelper)  
+rest-client DELETE request: [DELETE requests should process parameters just like GET and HEAD](https://github.com/backupify/rest-client/commit/e1e43095e0df22c66a89f0edc7d880370db7f43a)
