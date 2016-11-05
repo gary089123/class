@@ -30,7 +30,16 @@
         <li><%= link_to icon('search','查詢預約'), search_path %></li>
         <%if user_signed_in?%>
           <%if current_user.privilege==2%>
-            <li><%= link_to 'Admin', admin_path %></li>
+            <li class="dropdown">
+              <a href="#" data-toggle="dropdown" class="dropdown-toggle">
+                Admin <b class="caret"></b>
+              </a>
+              <ul class="dropdown-menu">
+                  <li><%= link_to '審核', admin_path %></li>
+                  <li><a href="#">學期管理</a></li>
+                  <li><a href="#">教室管理</a></li>
+              </ul>
+            </li>
           <%end%>
           <li><%= link_to icon('sign-out',current_user.name+',登出'), logout_path %></li>
         <%else%>
@@ -48,5 +57,6 @@
 <br>
 <%= render "layouts/footer" %>
 
+<%= yield :javascript %>
 </body>
 </html>
