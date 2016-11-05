@@ -14,26 +14,26 @@
 ActiveRecord::Schema.define(version: 20160829054842) do
 
   create_table "rents", force: :cascade do |t|
-    t.string   "name"
-    t.integer  "facility"
+    t.string   "name",       limit: 255
+    t.integer  "facility",   limit: 4
     t.datetime "start"
     t.datetime "end"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer  "user_id"
-    t.string   "status"
-    t.integer  "apid"
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+    t.integer  "user_id",    limit: 4
+    t.string   "status",     limit: 255
+    t.integer  "apid",       limit: 4
   end
 
-  add_index "rents", ["user_id"], name: "index_rents_on_user_id"
+  add_index "rents", ["user_id"], name: "index_rents_on_user_id", using: :btree
 
   create_table "users", force: :cascade do |t|
-    t.integer  "idnumber"
-    t.string   "name"
-    t.string   "unit"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer  "privilege"
+    t.integer  "idnumber",   limit: 4
+    t.string   "name",       limit: 255
+    t.string   "unit",       limit: 255
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+    t.integer  "privilege",  limit: 4
   end
 
 end

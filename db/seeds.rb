@@ -51,6 +51,8 @@ data.each do |q|
   users.each do |user|
     if user.name == q.fetch("creator").fetch("name")
       rent.user_id = user.id
+    else
+      rent.user_id = 1
     end
   end
 
