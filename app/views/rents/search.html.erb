@@ -8,7 +8,7 @@
   </div>
   <div class="row">
     <div class="col-md-10 col-md-offset-1">
-      <h3>您的預約：</h3>
+      <h3>您的臨時性預約：</h3>
       <table class="table table-striped">
       <thead>
         <tr>
@@ -41,7 +41,7 @@
           </tr>
           <!-- Modal -->
           <div id="rent<%= rent.id %>" class="modal fade" role="dialog">
-            <div class="modal-dialog modal-sm">
+            <div class="modal-dialog">
               <!-- Modal content-->
               <div class="modal-content">
                 <div class="modal-header">
@@ -53,8 +53,14 @@
                   <% rents={'4'=>'I202','5'=>'I210' , '6'=>'I002'}%>
                   <p>教室：<%= rents[rent.facility.to_s] %></p>
                   <p>借用人：<%= user.name %></p>
-                  <p>開始時間：<%= rent.start %></p>
-                  <p>結束時間：<%= rent.end %></p>
+                  <p>欲借用的時段：</p>
+                  <% @rent_times.each do |times| %>
+                    <% times.each do |time| %>
+                      <% if rent.id == time.rent_id %>
+                        <p><%= time.start %>～<%= time.end %></p>
+                      <% end %>
+                    <% end %>
+                  <% end %>
                   <p>狀態：<%= rent.status %></p>
                 </div>
                 <div class="modal-footer">

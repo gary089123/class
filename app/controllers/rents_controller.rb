@@ -1,5 +1,5 @@
 class RentsController < ApplicationController
-
+  before_action :has_access_token
   before_action :authenticate_user! , except: [:index]
   before_action :set_rent , only: [:show , :edit ,:update,:destroy]
   require 'rest-client'
@@ -15,7 +15,11 @@ class RentsController < ApplicationController
 
   def search
     @rent=Rent.where(user_id: current_user.id)
-
+    @rent_times = []
+    @rent.each do |rent|
+      @rent_times << RentTime.where(rent_id: rent.id)
+    end
+    # abort @rent_times.inspect
   end
 
   def show
@@ -69,21 +73,58 @@ class RentsController < ApplicationController
   end
 
   def create
-    @rent = Rent.new(params_rent)
+    # abort params[:rent].inspect
+    # @rent = Rent.new(params_rent)
+    @rent = Rent.new
+    @rent.name = params[:rent][:name]
+    @rent.facility = params[:rent][:facility]
     @rent.user_id = current_user.id
     @rent.status = "待審核"
-    url = 'http://140.115.3.188/facility/v1/facility/'+@rent.facility.to_s+'/rent'
-    rent = params[:rent]
-    start = DateTime.new(rent["start(1i)"].to_i ,rent["start(2i)"].to_i ,rent["start(3i)"].to_i ,rent["start(4i)"].to_i, rent["start(5i)"].to_i)
-    endt = DateTime.new(rent["end(1i)"].to_i ,rent["end(2i)"].to_i ,rent["end(3i)"].to_i ,rent["end(4i)"].to_i, rent["end(5i)"].to_i)
+    # abort @rent.inspect
+    @rent.save
 
-    data = [
-      {
-    	:start => start,
-        :end => endt
-      }
-    ]
+    data = [];
+    rent = params[:rent]
+    num = rent[:calculus].to_i
+    if num > 0
+      i = 0
+      while i < num do
+        if rent["year"+i.to_s]!=nil && rent["month"+i.to_s]!=nil && rent["day"+i.to_s]!=nil && rent["start_time"+i.to_s]!=nil
+          start = DateTime.new(rent["year"+i.to_s].to_i ,rent["month"+i.to_s].to_i ,rent["day"+i.to_s].to_i ,rent["start_time"+i.to_s].to_i, 0)
+        end
+        if rent["year"+i.to_s]!=nil && rent["month"+i.to_s]!=nil && rent["day"+i.to_s]!=nil && rent["end_time"+i.to_s]!=nil
+          endt = DateTime.new(rent["year"+i.to_s].to_i ,rent["month"+i.to_s].to_i ,rent["day"+i.to_s].to_i ,rent["end_time"+i.to_s].to_i, 0)
+        end
+
+        # rent_time 資料表
+        @rent_time = RentTime.new
+        @rent_time.rent_id = @rent.id
+        @rent_time.start = start
+        @rent_time.end = endt
+        @rent_time.save
+
+        # api
+        h = { :start => start ,:end => endt }
+        data << h
+
+        i += 1
+      end
+    end
+    # abort data.inspect
+
+
+    # rent = params[:rent]
+    # start = DateTime.new(rent["start(1i)"].to_i ,rent["start(2i)"].to_i ,rent["start(3i)"].to_i ,rent["start(4i)"].to_i, rent["start(5i)"].to_i)
+    # endt = DateTime.new(rent["start(1i)"].to_i ,rent["start(2i)"].to_i ,rent["start(3i)"].to_i ,rent["end(4i)"].to_i, rent["end(5i)"].to_i)
+    # data = [
+    #   {
+    #     :start => start,
+    #     :end => endt
+    #   }
+    # ]
+
     jdata=data.to_json
+    url = ENV['facility_root_api'] + @rent.facility.to_s + '/rent'
     api = RestClient.post(url,
     {
       :name => @rent.name,
@@ -93,6 +134,7 @@ class RentsController < ApplicationController
     japi=JSON.parse(api)
     puts japi["id"]
     @rent.apid = japi["id"].to_i
+
     @rent.save
     params[:format]=nil
     redirect_to rent_print_path
@@ -105,19 +147,28 @@ class RentsController < ApplicationController
     else
       @rent=Rent.find(params[:format])
     end
-    puts @rent.user_id
+    # puts @rent.user_id
     @user=User.find(@rent.user_id)
-    puts @user.name
+    # puts @user.name
+
+    @rent_times = RentTime.where(rent_id: @rent.id)
   end
 
 
   private
+  
+  def has_access_token
+    if ENV['access_token'] == nil
+      redirect_to oauth_path, notice: 'Please Login'
+    end
+  end
+
   def set_rent
     @rent=Rent.find(params[:id])
   end
 
   def params_rent
-    params.require(:rent).permit(:facility,:name,:start,:end)
+    params.require(:rent)#.permit(:facility,:name,:start,:end)
 
   end
 

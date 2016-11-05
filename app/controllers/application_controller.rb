@@ -10,6 +10,7 @@ class ApplicationController < ActionController::Base
   ENV['rent_202'] = 'rr7j9s4d5k21c4bcicn50ccpv8@group.calendar.google.com'
   ENV['rent_210'] = 'iv6su9k0daaod3i3vgia1lfktc@group.calendar.google.com'
   ENV['rent_002'] = 'g2cjaf2h5p45gl29lpbseuan2o@group.calendar.google.com'
+  ENV['facility_root_api'] = 'http://140.115.3.188/facility/v1/facility/'
 
   def current_user
     if session[:user_id]==nil

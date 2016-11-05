@@ -25,12 +25,11 @@
       </div>
       <div class="block">
         <h4>使用時間及日期：</h4>
-        <h5>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-          開始時間：<%= @rent.start %>
-        </h5>
-        <h5>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-          結束時間：<%= @rent.end %>
-        </h5>
+        <% @rent_times.each do |time| %>
+          <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <%= time.start %>～<%= time.end %>
+          </p>
+        <% end %>
       </div>
       <div class="block">
         <% rent={'4'=>'I202','5'=>'I210' , '6'=>'I002'}%>

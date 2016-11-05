@@ -9,28 +9,54 @@
   <div class="row">
     <div class="col-md-10 col-md-offset-1">
       <h3>借用填寫：</h3>
-      <%= form_for @rent do  |f| %>
-        <div class="form-group">
-          <label for="rent_name">借用名稱: </label>
-          <%= f.text_field :name, :class => "form-control", :placeholder => "例如：計算機實習" %>
+      <ul class="nav nav-tabs">
+        <li class="active"><a data-toggle="tab" href="#new_rent">臨時性借用</a></li>
+        <li><a data-toggle="tab" href="#new_srent">學期性借用</a></li>
+      </ul><br>
+      <div class="tab-content">
+        <div id="new_rent" class="tab-pane fade in active">
+          <%= form_for @rent do |f| %>
+            <div class="form-group">
+              <label for="rent_name">借用教室: </label>
+              <%= f.radio_button :facility, '4' %>
+              <%= f.label :facility_4, 'I202' %>
+              <%= f.radio_button :facility, '6'%>
+              <%= f.label :facility_6, 'I002' %>
+              <%= f.radio_button :facility, '5'%>
+              <%= f.label :facility_5, 'I210' %>
+            </div>
+            <div class="form-group">
+              <label for="rent_name">借用名稱: </label>
+              <%= f.text_field :name, :class => "form-control", :placeholder => "例如：計算機實習" ,:required => true %>
+            </div>
+            <div class="form-group input_fields_wrap">
+              <label for="rent_name">借用時段: </label>
+              <h5>EX: 2016年 1月 1日 14：00～16：00</h5>
+              <button type="button" class="btn btn-success" id="add_time_button">新增時段 <i class="fa fa-plus"></i></button>
+              <br><br>
+              <input type="text" name="rent[year0]" id="rent_year_0" size="6" maxlength="4" required="required">
+              年&nbsp;/
+              <input type="text" name="rent[month0]" id="rent_month_0" size="4" maxlength="2" required="required">
+              月&nbsp;/
+              <input type="text" name="rent[day0]" id="rent_day_0" size="4" maxlength="2" required="required">
+              日&nbsp;,
+              <input type="text" name="rent[start_time0]" size="4" maxlength="2" required="required">
+              ：00
+              ～
+              <input type="text" name="rent[end_time0]" size="4" maxlength="2" required="required">
+              ：00
+              &nbsp;
+              <button type="button" class="btn btn-sm btn-info" id="set_today">設為今天</button>
+              <br>
+              <input type="hidden" name="rent[calculus]" id="rent_calculus" value="1">
+            </div>
+            <%= f.submit '送出預約', :class => "btn btn-danger btn-lg btn-block", :role => "button" %>
+          <% end %>
         </div>
-        <div class="form-group">
-          <label for="rent_name">借用教室: </label>
-          <%= f.radio_button :facility, '4' %>
-          <%= f.label :facility_4, 'I202' %>
-          <%= f.radio_button :facility, '6'%>
-          <%= f.label :facility_6, 'I002' %>
-          <%= f.radio_button :facility, '5'%>
-          <%= f.label :facility_5, 'I210' %>
-
+        <div id="new_srent" class="tab-pane fade">
+          學期性借用
         </div>
-        <div class="form-group">
-          <label for="rent_name">借用時段: </label>
-          <%= f.datetime_select :start%>
-          <%= f.datetime_select :end%>
-        </div>
-        <%= f.submit '送出預約', :class => "btn btn-danger btn-lg btn-block", :role => "button" %>
-      <% end %>
+      </div>
     </div>
   </div>
   <div class="row">
@@ -64,6 +90,50 @@
     </div>
   </div>
 </div>
+
+<% content_for :javascript do %>
+<script type="text/javascript">
+$(document).ready(function() {
+
+    // 設定時間
+    var today = new Date();
+    var today_day = today.getDate();
+    var today_month = today.getMonth()+1;
+    var today_year = today.getFullYear();
+    $('#set_today').click(function(e) {
+      e.preventDefault();
+      $('#rent_year_0').val(today_year);
+      $('#rent_month_0').val(today_month);
+      $('#rent_day_0').val(today_day);
+    });
+
+    // ref: https://www.sanwebe.com/2013/03/addremove-input-fields-dynamically-with-jquery
+    var max_fields      = 20; //maximum input boxes allowed
+    var wrapper         = $(".input_fields_wrap"); //Fields wrapper
+    var add_button      = $("#add_time_button"); //Add button ID
+    var x = 1; //initlal text box count
+    $(add_button).click(function(e){ //on add input button click
+        e.preventDefault();
+        if(x < max_fields){ //max input box allowed
+            var year = "<input type='text' name='rent[year"+x+"]' size='6' maxlength='4' value='"+today_year+"' required='required'>";
+            var month = "<input type='text' name='rent[month"+x+"]' size='4' maxlength='2' required='required'>";
+            var day = "<input type='text' name='rent[day"+x+"]' size='4' maxlength='2' required='required'>";
+            var stime = "<input type='text' name='rent[start_time"+x+"]' size='4' maxlength='2' required='required'>";
+            var etime = "<input type='text' name='rent[end_time"+x+"]' size='4' maxlength='2' required='required'>";
+            var result = "<div>" + year + ' 年 / ' + month + ' 月 / ' + day + ' 日 , ' + stime + ' ：00 ～ ' + etime  + ' ：00 ';
+            result+="<a href='#' class='remove_field text-danger'> &nbsp;&nbsp;<i class='fa fa-times'></i></a></div>";
+            $(wrapper).append(result);
+            x++; //text box increment
+            $("#rent_calculus").val(x);
+        }
+    });
+    $(wrapper).on("click",".remove_field", function(e){ //user click on remove text
+        e.preventDefault(); $(this).parent('div').remove();
+    })
+});
+</script>
+<% end %>
+
 <!-- <%= form_for @rent do  |f| %>
     <%= f.text_field :name%>
     <%= f.radio_button :facility, '4' %>
