@@ -3,10 +3,10 @@ class OauthController < ApplicationController
   require 'rest-client'
   require 'json'
 
-  @@client_id = 'YTEzMmY5OTEtNDEyMC00MGM1LWFmOGUtMTBiNzVhNjRmMjQ0'
-  @@client_secret = '8ae853bff25f54dd4bf54a8168a749d160d610c5724a50f4575a58cd0dfba9b9a6b9f7f08a60ba9c90fcedbb54ec95a697e2dc945220b77acabbc9dccfbbf339'
-  @@api_token = '7411169a651e1910e7f007c2530de6ec0594a26cd27619c3e80e8836b6456505f1e891a0f5bd3a0db1988beee701be2f5ad79e4d81f57eb2d69301584374e88d'
-  @@oauth_root_url = 'http://140.115.3.188/oauth'
+  @@client_id = ENV['client_id']
+  @@client_secret = ENV['client_secret']
+  @@api_token = ENV['api_token']
+  @@oauth_root_url = ENV['oauth_root_url']
 
   def oauth
     scope = 'facility.rent.read+facility.rent.write+facility.rent.verify+facility.manage+user.info.basic.read'
@@ -29,11 +29,11 @@ class OauthController < ApplicationController
     jdoc = JSON.parse(@access)
     access_token= jdoc.fetch("access_token")
     ENV['access_token'] = access_token
-    
-    
-    url = 'http://140.115.3.188/personnel/v1/info'
+
+
+    url = ENV['api_personnel']
     api = RestClient.get url, { 'Authorization' => 'Bearer ' + ENV['access_token']}
-    
+
     userinfo=api.split(/[,":{}]/).reject(&:empty?)
     user = User.find_by(idnumber:userinfo[1])
     if user==nil
@@ -46,8 +46,8 @@ class OauthController < ApplicationController
 
   def logout
     session.delete(:user_id)
-    
-    redirect_to root_path , notice: 'logout success' 
+
+    redirect_to root_path , notice: 'logout success'
   end
 
 # just for test

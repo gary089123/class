@@ -5,9 +5,6 @@ class RentsController < ApplicationController
   require 'rest-client'
   require 'json'
 
-
-  @@api_token = '7411169a651e1910e7f007c2530de6ec0594a26cd27619c3e80e8836b6456505f1e891a0f5bd3a0db1988beee701be2f5ad79e4d81f57eb2d69301584374e88d'
-
   def index
     @rent_202 = ENV['rent_202']
     @rent_210 = ENV['rent_210']
@@ -29,34 +26,34 @@ class RentsController < ApplicationController
   end
 
   def update
-    @rent.update(params_rent)
-    puts @rent.apid
-    url = 'http://140.115.3.188/facility/v1/rent/'+@rent.apid.to_s
-    rent = params[:rent]
-    start = DateTime.new(rent["start(1i)"].to_i ,rent["start(2i)"].to_i ,rent["start(3i)"].to_i ,rent["start(4i)"].to_i, rent["start(5i)"].to_i)
-    endt = DateTime.new(rent["end(1i)"].to_i ,rent["end(2i)"].to_i ,rent["end(3i)"].to_i ,rent["end(4i)"].to_i, rent["end(5i)"].to_i)
-
-    data = [
-      {
-        :start => start,
-        :end => endt
-      }
-    ]
-    jdata=data.to_json
-    api = RestClient.put(url,
-    {
-      :id => @rent.apid.to_s,
-      :name => @rent.name,
-      :spans => jdata,
-      :access_token => ENV['access_token']
-    })
+    # @rent.update(params_rent)
+    # puts @rent.apid
+    # url = 'http://140.115.3.188/facility/v1/rent/'+@rent.apid.to_s
+    # rent = params[:rent]
+    # start = DateTime.new(rent["start(1i)"].to_i ,rent["start(2i)"].to_i ,rent["start(3i)"].to_i ,rent["start(4i)"].to_i, rent["start(5i)"].to_i)
+    # endt = DateTime.new(rent["end(1i)"].to_i ,rent["end(2i)"].to_i ,rent["end(3i)"].to_i ,rent["end(4i)"].to_i, rent["end(5i)"].to_i)
+    #
+    # data = [
+    #   {
+    #     :start => start,
+    #     :end => endt
+    #   }
+    # ]
+    # jdata=data.to_json
+    # api = RestClient.put(url,
+    # {
+    #   :id => @rent.apid.to_s,
+    #   :name => @rent.name,
+    #   :spans => jdata,
+    #   :access_token => ENV['access_token']
+    # })
     redirect_to rent_print_path
 
   end
 
   def destroy
     puts @rent.facility
-    url = 'http://140.115.3.188/facility/v1/rent/'+@rent.apid.to_s+'?access_token='+ENV['access_token']
+    url = ENV['api_rent'] + @rent.apid.to_s + '?access_token='+ENV['access_token']
     api = RestClient.delete(url , {})
     @rent.destroy
     redirect_to :back
@@ -125,7 +122,7 @@ class RentsController < ApplicationController
     # ]
 
     jdata=data.to_json
-    url = ENV['facility_root_api'] + @rent.facility.to_s + '/rent'
+    url = ENV['api_facility'] + @rent.facility.to_s + '/rent'
     api = RestClient.post(url,
     {
       :name => @rent.name,
