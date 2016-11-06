@@ -5,35 +5,47 @@
         <h2>國立中央大學電子計算機中心</h2>
         <h2>電腦網路教室及遠距視訊教室場地使用申請表</h2>
       </div>
+      <br><br>
       <div class="block">
-        <h4>使用事由：<%= @rent.name %></h4>
+        <h4>學期：<%= @rent.semester.description %></h4>
       </div>
       <div class="block">
-        <h4>申請單位名稱：</h4>
+        <% rent={'4'=>'I202','5'=>'I210' , '6'=>'I002'}%>
+        <h4>場地：<%= rent[@rent.facility.to_s] %></h4>
       </div>
       <div class="block">
-        <h4>單位負責人：</h4>
+        <h4>事由：<%= @rent.name %></h4>
       </div>
       <div class="block">
-        <h4>申請人或聯絡人：<%= @user.name %></h4>
+        <h4>教師： <%= @rent.teacher %></h4>
       </div>
       <div class="block">
-        <h4>聯絡電話：</h4>
+        <h4>申請人：<%= @user.name %></h4>
       </div>
       <div class="block">
-        <h4>預計人數：</h4>
+        <h4>單位：<%= @user.unit %></h4>
+      </div>
+      <div class="block">
+        <h4>聯絡電話：<%= @rent.phone %></h4>
+      </div>
+      <div class="block">
+        <h4>聯絡信箱：<%= @rent.email %></h4>
       </div>
       <div class="block">
         <h4>使用時間及日期：</h4>
-        <% @rent_times.each do |time| %>
+        <% @rent.rent_times.each do |time| %>
           <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <%= time.start %>～<%= time.end %>
+            <%= time.start.strftime('%Y / %m / %d %I:%M') %>
+             ～
+            <%= time.end.strftime('%Y / %m / %d %I:%M') %>
           </p>
         <% end %>
       </div>
       <div class="block">
-        <% rent={'4'=>'I202','5'=>'I210' , '6'=>'I002'}%>
-        <h4>使用場地：<%= rent[@rent.facility.to_s] %></h4>
+        <h4>申請時間：<%= @rent.created_at.strftime('%Y / %m / %d %I:%M') %></h4>
+      </div>
+      <div class="block">
+        <h4>預計人數：</h4>
       </div>
       <div class="block">
         <h4>中心主任簽章：</h4>

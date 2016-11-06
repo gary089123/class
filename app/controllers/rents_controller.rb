@@ -75,6 +75,9 @@ class RentsController < ApplicationController
     @rent = Rent.new
     @rent.semester_id = params[:rent][:semester_id]
     @rent.name = params[:rent][:name]
+    @rent.teacher = params[:rent][:teacher]
+    @rent.phone = params[:rent][:phone]
+    @rent.email = params[:rent][:email]
     @rent.facility = params[:rent][:facility]
     @rent.user_id = current_user.id
     @rent.status = "待審核"

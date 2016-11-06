@@ -47,6 +47,18 @@
               <label for="rent_name">借用名稱： <label>
               <%= f.text_field :name, :class => "form-control", :placeholder => "例如：計算機實習" ,:required => true %>
             </div>
+            <div class="form-group">
+              <label for="rent_teacher">授課教師： <label>
+              <%= f.text_field :teacher, :class => "form-control", :required => true %>
+            </div>
+            <div class="form-group">
+              <label for="rent_phone">聯絡電話： <label>
+              <%= f.text_field :phone, :class => "form-control", :placeholder => "例如：0988123456" ,:required => true %>
+            </div>
+            <div class="form-group">
+              <label for="rent_email">聯絡信箱： <label>
+              <%= f.text_field :email, :class => "form-control", :placeholder => "例如：john@example.com" ,:required => true %>
+            </div>
             <div class="form-group input_fields_wrap">
               <label for="rent_name">借用時段： </label>
               <h5>EX: 2016年 1月 1日 14：00～16：00</h5>
@@ -68,6 +80,7 @@
               <br>
               <input type="hidden" name="rent[calculus]" id="rent_calculus" value="1">
             </div>
+            <h4>請確認無誤後再送出</h4>
             <%= f.submit '送出預約',
               :class => "btn btn-danger btn-lg btn-block",
               :role => "button",

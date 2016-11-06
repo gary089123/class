@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161106161915) do
+ActiveRecord::Schema.define(version: 20161106195013) do
 
   create_table "rent_times", force: :cascade do |t|
     t.integer  "rent_id",    limit: 4
@@ -34,6 +34,9 @@ ActiveRecord::Schema.define(version: 20161106161915) do
     t.string   "status",      limit: 255
     t.integer  "apid",        limit: 4
     t.integer  "semester_id", limit: 4
+    t.string   "teacher",     limit: 255
+    t.string   "phone",       limit: 255
+    t.string   "email",       limit: 255
   end
 
   add_index "rents", ["semester_id"], name: "index_rents_on_semester_id", using: :btree
