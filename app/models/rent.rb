@@ -4,4 +4,5 @@ class Rent < ActiveRecord::Base
 
   belongs_to :user
   has_many :rent_times
+  belongs_to :semester
 end

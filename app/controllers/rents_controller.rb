@@ -5,6 +5,7 @@ class RentsController < ApplicationController
   require 'rest-client'
   require 'json'
 
+
   @@api_token = '7411169a651e1910e7f007c2530de6ec0594a26cd27619c3e80e8836b6456505f1e891a0f5bd3a0db1988beee701be2f5ad79e4d81f57eb2d69301584374e88d'
 
   def index
@@ -15,11 +16,8 @@ class RentsController < ApplicationController
 
   def search
     @rent=Rent.where(user_id: current_user.id)
-    @rent_times = []
-    @rent.each do |rent|
-      @rent_times << RentTime.where(rent_id: rent.id)
-    end
     # abort @rent_times.inspect
+    # abort @rent.inspect
   end
 
   def show
@@ -70,12 +68,15 @@ class RentsController < ApplicationController
     @rent_210 = ENV['rent_210']
     @rent_002 = ENV['rent_002']
     @rent=Rent.new
+    @semesters = Semester.where(is_open: true)
+    # abort @semesters.inspect
   end
 
   def create
     # abort params[:rent].inspect
     # @rent = Rent.new(params_rent)
     @rent = Rent.new
+    @rent.semester_id = params[:rent][:semester_id]
     @rent.name = params[:rent][:name]
     @rent.facility = params[:rent][:facility]
     @rent.user_id = current_user.id
@@ -150,8 +151,6 @@ class RentsController < ApplicationController
     # puts @rent.user_id
     @user=User.find(@rent.user_id)
     # puts @user.name
-
-    @rent_times = RentTime.where(rent_id: @rent.id)
   end
 
 

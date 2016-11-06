@@ -17,7 +17,25 @@
         <div id="new_rent" class="tab-pane fade in active">
           <%= form_for @rent do |f| %>
             <div class="form-group">
-              <label for="rent_name">借用教室: </label>
+              <h4>目前可借時間</h4>
+              <% @semesters.each do |s| %>
+                <%= s.description %> ：
+                <%= s.start.strftime('%Y / %m / %d') %>
+                 ～
+                <%= s.end.strftime('%Y / %m / %d') %>
+                <br>
+              <% end %>
+            </div>
+            <div class="form-group">
+              <%= f.label :semester_id, '借用年度：' %>
+              <%= f.select(:semester_id) do %>
+                <% @semesters.each do |c| %>
+                  <%= content_tag(:option, c.description, value: c.id) %>
+                <% end %>
+              <% end %>
+            </div>
+            <div class="form-group">
+              <label for="rent_name">借用教室： </label>
               <%= f.radio_button :facility, '4' %>
               <%= f.label :facility_4, 'I202電腦教室' %>
               <%= f.radio_button :facility, '6'%>
@@ -26,11 +44,11 @@
               <%= f.label :facility_5, 'I210視訊會議室' %>
             </div>
             <div class="form-group">
-              <label for="rent_name">借用名稱: </label>
+              <label for="rent_name">借用名稱： <label>
               <%= f.text_field :name, :class => "form-control", :placeholder => "例如：計算機實習" ,:required => true %>
             </div>
             <div class="form-group input_fields_wrap">
-              <label for="rent_name">借用時段: </label>
+              <label for="rent_name">借用時段： </label>
               <h5>EX: 2016年 1月 1日 14：00～16：00</h5>
               <button type="button" class="btn btn-success" id="add_time_button">新增時段 <i class="fa fa-plus"></i></button>
               <br><br>
@@ -50,7 +68,11 @@
               <br>
               <input type="hidden" name="rent[calculus]" id="rent_calculus" value="1">
             </div>
-            <%= f.submit '送出預約', :class => "btn btn-danger btn-lg btn-block", :role => "button" %>
+            <%= f.submit '送出預約',
+              :class => "btn btn-danger btn-lg btn-block",
+              :role => "button",
+              :onclick => "return confirm('送出無法更改，確定要送出？')"
+            %>
           <% end %>
         </div>
         <div id="new_srent" class="tab-pane fade">

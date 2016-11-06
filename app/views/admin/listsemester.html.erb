@@ -1,0 +1,135 @@
+<div class="container">
+  <div class="jumbotron">
+    <h2><i class="fa fa-calendar"></i> 學期管理</h2>
+    <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#add_semester">新增學期</a>
+  </div>
+  <div class="row">
+    <div class="col-md-10 col-md-offset-1">
+      <table class="table table-striped ">
+        <thead>
+          <th>敘述</th>
+          <th>起始時間</th>
+          <th>結束時間</th>
+          <th>目前是否供借用</th>
+          <th>編輯</th>
+          <th>刪除</th>
+        </thead>
+        <tbody>
+        <%# debug @semester %>
+        <% @semesters.each do |semester| %>
+          <tr>
+            <td><%= semester.description %></td>
+            <td><%= semester.start.strftime('%F') %></td>
+            <td><%= semester.end.strftime('%F') %></td>
+            <td><%= semester.is_open %></td>
+            <td>
+              <a href="#" class="btn btn-sm btn-success" data-toggle="modal" data-target="#edit<%= semester.id %>">
+                編輯
+              </a>
+            </td>
+            <td>
+              <%= link_to '刪除', admin_semester_path(semester), method: :delete, data: { confirm: '刪除可能程式會崩壞，確定嗎？' }, class: 'btn btn-sm btn-danger'%>
+            </td>
+          </tr>
+
+          <%# 編輯按鈕 %>
+          <div id="edit<%= semester.id %>" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  <h4 class="modal-title">編輯</h4>
+                </div>
+                <div class="modal-body">
+                  <%= form_for semester, :url => admin_semester_path(semester), method: :patch do |f| %>
+                    <div class="form-group">
+                      <%= f.label :name, '學期別' %>
+                      <%= f.text_field :name, :placeholder => 'ex:101、121', :size => 30 %>
+                    </div>
+                    <div class="form-group">
+                      <label>上或下學期</label>
+                      <%= f.radio_button :updown, '0' %>
+                      <%= f.label :updown_0, '上學期' %>
+                      <%= f.radio_button :updown, '1'%>
+                      <%= f.label :updown_1, '下學期' %>
+                    </div>
+                    <div class="form-group">
+                      <label>目前是否供借用</label>
+                      <%= f.radio_button :is_open, 'true' %>
+                      <%= f.label :is_open_true, '是' %>
+                      <%= f.radio_button :is_open, 'false'%>
+                      <%= f.label :is_open_false, '否' %>
+                    </div>
+                    <div class="form-group">
+                      <%= f.label :start, '開始時間' %>
+                      <%= f.date_select :start%>
+                    </div>
+                    <div class="form-group">
+                      <%= f.label :end, '結束時間' %>
+                      <%= f.date_select :end%>
+                    </div>
+                    <%= f.submit '編輯學期', :class => 'btn btn-success'%>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+
+<div id="add_semester" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">新增學期</h4>
+      </div>
+      <div class="modal-body">
+        <%= form_for @semester, :url => admin_semesters_path do |f| %>
+          <div class="form-group">
+            <%= f.label :name, '學期別' %>
+            <%= f.text_field :name, :placeholder => 'ex:101、121', :size => 30 %>
+          </div>
+          <div class="form-group">
+            <label>上或下學期</label>
+            <%= f.radio_button :updown, '0' %>
+            <%= f.label :updown_0, '上學期' %>
+            <%= f.radio_button :updown, '1'%>
+            <%= f.label :updown_1, '下學期' %>
+          </div>
+          <div class="form-group">
+            <%# f.label :description, '敘述' %>
+            <%# f.text_field :description, :placeholder => 'ex:101下學期、121上學期', :size => 30 %>
+          </div>
+          <div class="form-group">
+            <label>目前是否供借用</label>
+            <%= f.radio_button :is_open, 'true' %>
+            <%= f.label :is_open_true, '是' %>
+            <%= f.radio_button :is_open, 'false'%>
+            <%= f.label :is_open_false, '否' %>
+          </div>
+          <div class="form-group">
+            <%= f.label :start, '開始時間' %>
+            <%= f.date_select :start%>
+          </div>
+          <div class="form-group">
+            <%= f.label :end, '結束時間' %>
+            <%= f.date_select :end%>
+          </div>
+          <%= f.submit '建立學期', :class => 'btn btn-primary'%>
+        <% end %>
+      </div>
+      <div class="modal-footer">
+        Ｑ
+      </div>
+    </div>
+  </div>
+</div>

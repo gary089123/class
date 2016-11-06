@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+# 首頁
   root 'staticpages#index'
 
 # 使用說明 與 借用狀態
@@ -8,10 +9,9 @@ Rails.application.routes.draw do
     get 'status'
   end
 
-# get access_token
+# Oauth
   get 'oauth', :to => 'oauth#oauth'
   get 'callback', :to => 'oauth#callback'
-
   get 'logout', :to => 'oauth#logout'
 
 # api testing
@@ -23,10 +23,15 @@ Rails.application.routes.draw do
   get 'search', :controller => 'rents'
   get 'rent/print' ,:to => 'rents#print'
 
-#預約 CRUD
+# Admin
+  scope :controller => 'admin', :path => 'admin', :as => 'admin' do
+    get '/', :to => 'admin#index'
+    get 'vertify' ,:to => 'admin#vertify'
+    get 'unvertify', :to=> 'admin#unvertify'
+    get 'listsemester', :to=> 'admin#listsemester'
+    post 'semesters', :to => 'admin#create_semester'
+    delete 'semesters/:id', :to => 'admin#destory_semester', :as => 'semester'
+    patch 'semesters/:id', :to => 'admin#update_semester'
+  end
   
-  get 'admin' , :to => 'admin#index'
-  get 'admin/vertify' ,:to => 'admin#vertify'
-  get 'admin/unvertify', :to=> 'admin#unvertify'
-
 end
