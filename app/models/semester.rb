@@ -1,3 +1,3 @@
 class Semester < ActiveRecord::Base
-  has_many :rent
+  has_many :rents
 end
