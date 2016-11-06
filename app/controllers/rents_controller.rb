@@ -89,23 +89,23 @@ class RentsController < ApplicationController
     if num > 0
       i = 0
       while i < num do
-        if rent["year"+i.to_s]!=nil && rent["month"+i.to_s]!=nil && rent["day"+i.to_s]!=nil && rent["start_time"+i.to_s]!=nil
-          start = DateTime.new(rent["year"+i.to_s].to_i ,rent["month"+i.to_s].to_i ,rent["day"+i.to_s].to_i ,rent["start_time"+i.to_s].to_i, 0)
-        end
-        if rent["year"+i.to_s]!=nil && rent["month"+i.to_s]!=nil && rent["day"+i.to_s]!=nil && rent["end_time"+i.to_s]!=nil
-          endt = DateTime.new(rent["year"+i.to_s].to_i ,rent["month"+i.to_s].to_i ,rent["day"+i.to_s].to_i ,rent["end_time"+i.to_s].to_i, 0)
-        end
+        if (rent["year"+i.to_s]!=nil && rent["month"+i.to_s]!=nil && rent["day"+i.to_s]!=nil && rent["start_time"+i.to_s]!=nil \
+          && rent["year"+i.to_s]!=nil && rent["month"+i.to_s]!=nil && rent["day"+i.to_s]!=nil && rent["end_time"+i.to_s]!=nil)
 
-        # rent_time 資料表
-        @rent_time = RentTime.new
-        @rent_time.rent_id = @rent.id
-        @rent_time.start = start
-        @rent_time.end = endt
-        @rent_time.save
+          start = Time.new(rent["year"+i.to_s].to_i ,rent["month"+i.to_s].to_i ,rent["day"+i.to_s].to_i ,rent["start_time"+i.to_s].to_i, 0)
+          endt = Time.new(rent["year"+i.to_s].to_i ,rent["month"+i.to_s].to_i ,rent["day"+i.to_s].to_i ,rent["end_time"+i.to_s].to_i, 0)
 
-        # api
-        h = { :start => start ,:end => endt }
-        data << h
+          # rent_time 資料表
+          @rent_time = RentTime.new
+          @rent_time.rent_id = @rent.id
+          @rent_time.start = start
+          @rent_time.end = endt
+          @rent_time.save
+
+          # api
+          h = { :start => start ,:end => endt }
+          data << h
+        end
 
         i += 1
       end
@@ -156,7 +156,7 @@ class RentsController < ApplicationController
 
 
   private
-  
+
   def has_access_token
     if ENV['access_token'] == nil
       redirect_to oauth_path, notice: 'Please Login'
