@@ -14,10 +14,9 @@
         <tr>
           <th>流水號</th>
           <th>學期</th>
-          <th>教室借用</th>
           <th>教室</th>
+          <th>事由</th>
           <th>狀態</th>
-          <th>借用人</th>
           <th>詳細資料</th>
           <th>列印</th>
           <th>操作</th>
@@ -29,11 +28,10 @@
           <tr>
             <td><%= rent.id %></td>
             <td><%= rent.semester.description %></td>
-            <td><%= rent.name %></td>
             <%rentc={'4'=>'I202','5'=>'I210','6'=>'I002'}%>
             <td><%= rentc[rent.facility.to_s]%></td>
+            <td><%= rent.name %></td>
             <td><%= rent.status %></td>
-            <td><%= user.name %></td>
             <%#舊的show.html.erb link_to '詳細訊息', rent %>
             <td><a href="#" data-toggle="modal" data-target="#rent<%= rent.id %>">詳細資料</a></td>
             <%if rent.status=='待審核'%>
@@ -51,10 +49,14 @@
                   <h4 class="modal-title"><%= rent.name %></h4>
                 </div>
                 <div class="modal-body">
-                  <p>事由：<%= rent.name %></p>
+                  <p>學期：<%= rent.semester.description %></p>
                   <% rents={'4'=>'I202','5'=>'I210' , '6'=>'I002'}%>
                   <p>教室：<%= rents[rent.facility.to_s] %></p>
+                  <p>事由：<%= rent.name %></p>
+                  <p>教師：<%= rent.teacher %></p>
                   <p>借用人：<%= user.name %></p>
+                  <p>聯絡電話：<%= rent.phone %></p>
+                  <p>聯絡信箱：<%= rent.email %></p>
                   <p>欲借用的時段：</p>
                   <% rent.rent_times.each do |time| %>
                     <p>
