@@ -156,12 +156,6 @@ class RentsController < ApplicationController
 
   private
 
-  def has_access_token
-    if ENV['access_token'] == nil
-      redirect_to oauth_path, notice: 'Please Login'
-    end
-  end
-
   def set_rent
     @rent=Rent.find(params[:id])
   end

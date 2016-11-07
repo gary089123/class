@@ -1,4 +1,5 @@
 class AdminController < ApplicationController
+  before_action :has_access_token
   before_action :authenticate_user!
   before_action :set_admin
 

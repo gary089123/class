@@ -39,4 +39,11 @@ class ApplicationController < ActionController::Base
       redirect_to oauth_path, notice: 'Please Login'
     end
   end
+
+  def has_access_token
+    if ENV['access_token'] == nil
+      redirect_to oauth_path, notice: 'Please Login'
+    end
+  end
+
 end
