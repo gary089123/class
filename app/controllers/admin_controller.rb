@@ -10,7 +10,10 @@ class AdminController < ApplicationController
       @rent = Rent.where(:user_id => @user.ids)
       puts @user.ids
     else
-      @rent = Rent.all
+      # 關聯
+      @rent = Rent.joins(:semester).where('semesters.is_open', true)
+      # 排序
+      @rent = @rent.order("semester_id asc, facility asc, created_at asc")
     end
   end
 

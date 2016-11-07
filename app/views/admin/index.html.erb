@@ -1,12 +1,12 @@
 <div class="container">
   <div class="jumbotron">
     <h2><i class="fa fa-user"></i> 審核</h2>
-    <p>
-      排序：學期 -> 教室 -> 申請時間
-    </p>
+    <p>排序：學期 -> 教室 -> 申請時間</p>
+    <p>只會顯示目前開放的學期</p>
   </div>
   <div class="row">
     <div class="col-md-10 col-md-offset-1">
+      <h3>臨時性預約：</h3>
       <%= form_tag admin_path, method: :get do %>
           <%= text_field_tag :search, params[:search], placeholder: "學號或姓名" %>
           <%= submit_tag "搜尋", name: nil %>
@@ -27,7 +27,7 @@
       </thead>
       <tbody>
         <% @rent.each do |rent| %>
-        <% user= User.find(rent.user_id)%>
+          <% user= User.find(rent.user_id)%>
           <tr>
             <td><%= rent.id %></td>
             <td><%= rent.semester.description %></td>
