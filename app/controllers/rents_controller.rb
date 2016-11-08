@@ -13,6 +13,7 @@ class RentsController < ApplicationController
 
   def search
     @rent=Rent.where(user_id: current_user.id)
+    @srent=Srent.where(user_id: current_user.id)
     # abort @rent_times.inspect
     # abort @rent.inspect
   end
@@ -65,6 +66,7 @@ class RentsController < ApplicationController
     @rent_210 = ENV['rent_210']
     @rent_002 = ENV['rent_002']
     @rent=Rent.new
+    @srent=Srent.new
     @semesters = Semester.where(is_open: true)
     # abort @semesters.inspect
   end

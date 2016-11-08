@@ -9,12 +9,15 @@ class AdminController < ApplicationController
     if params[:search]
       @user = User.where('name Like ? OR idnumber Like ?',"%#{params[:search]}%","%#{params[:search]}%" )
       @rent = Rent.where(:user_id => @user.ids)
+      @srent = Srent.where(:user_id => @user.ids)
       puts @user.ids
     else
       # 關聯
       @rent = Rent.joins(:semester).where('semesters.is_open', true)
+      @srent = Srent.joins(:semester).where('semesters.is_open', true)
       # 排序
       @rent = @rent.order("semester_id asc, facility asc, created_at asc")
+      @srent = @srent.order("semester_id asc, facility asc, created_at asc")
     end
   end
 

@@ -23,6 +23,10 @@ Rails.application.routes.draw do
   get 'search', :controller => 'rents'
   get 'rent/print' ,:to => 'rents#print'
 
+  # 長期預約
+    resources :srents
+    get 'srent/print' ,:to => 'srents#print' 
+
 # Admin
   scope :controller => 'admin', :path => 'admin', :as => 'admin' do
     get '/', :to => 'admin#index'
@@ -33,5 +37,5 @@ Rails.application.routes.draw do
     delete 'semesters/:id', :to => 'admin#destory_semester', :as => 'semester'
     patch 'semesters/:id', :to => 'admin#update_semester'
   end
-  
+
 end

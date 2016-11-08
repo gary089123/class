@@ -89,7 +89,78 @@
           <% end %>
         </div>
         <div id="new_srent" class="tab-pane fade">
-          學期性借用
+          <div class="row">
+    <div class="col-md-10 col-md-offset-1">
+      <h3>借用填寫：</h3>
+      <%= form_for @srent do  |f| %>
+      <div class="form-group">
+        <%= f.label :semester_id, '借用年度：' %>
+        <%= f.select(:semester_id) do %>
+          <% @semesters.each do |c| %>
+            <%= content_tag(:option, c.description, value: c.id) %>
+          <% end %>
+        <% end %>
+      </div>
+        <div class="form-group">
+          <label for="rent_name">借用名稱: </label>
+          <%= f.text_field :name, :class => "form-control", :placeholder => "例如：計算機實習" %>
+        </div>
+        <div class="form-group">
+          <label for="rent_name">借用教室: </label>
+          <%= f.radio_button :facility, '4' %>
+          <%= f.label :facility_4, 'I202' %>
+          <%= f.radio_button :facility, '6'%>
+          <%= f.label :facility_6, 'I002' %>
+          <%= f.radio_button :facility, '5'%>
+          <%= f.label :facility_5, 'I210' %>
+
+        </div>
+
+        <div class="form-group">
+          <table>
+          <thread>
+            <tr>
+              <th>時間</th>
+              <th>星期一</th>
+              <th>星期二</th>
+              <th>星期三</th>
+              <th>星期四</th>
+              <th>星期五</th>
+            </tr>
+          </thread>
+          <tbody>
+            <%for i in 1..9%>
+            <tr>
+              <td><%= (8+i-1).to_s+":00~"+(8+i).to_s+":00"%></td>
+              <%for j in 1..5%>
+                <td><%=check_box_tag j.to_s+"-"+i.to_s%></td>
+              <%end%>
+            </tr>
+            <%end%>
+          </tbody>
+          </table>
+        </div>
+        <div class="form-group">
+          <label for="rent_teacher">授課教師： <label>
+          <%= f.text_field :teacher, :class => "form-control", :required => true %>
+        </div>
+        <div class="form-group">
+          <label for="rent_phone">聯絡電話： <label>
+          <%= f.text_field :phone, :class => "form-control", :placeholder => "例如：0988123456" ,:required => true %>
+        </div>
+        <div class="form-group">
+          <label for="rent_email">聯絡信箱： <label>
+          <%= f.text_field :email, :class => "form-control", :placeholder => "例如：john@example.com" ,:required => true %>
+        </div>
+
+        <%= f.submit '送出預約', :class => "btn btn-danger btn-lg btn-block", :role => "button" %>
+      <% end %>
+    </div>
+  </div>
+
+
+
+
         </div>
       </div>
     </div>

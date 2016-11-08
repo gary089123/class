@@ -75,6 +75,55 @@
             </div>
           </div>
         <% end %>
+        <% @srent.each do |rent| %>
+        <% user= User.find(rent.user_id)%>
+          <tr>
+            <td><%= "(學期性)"+rent.id.to_s %></td>
+            <td><%= rent.semester.description %></td>
+            <%rentc={'4'=>'I202','5'=>'I210','6'=>'I002'}%>
+            <td><%= rentc[rent.facility.to_s]%></td>
+            <td><%= rent.name %></td>
+            <td><%= rent.status %></td>
+            <%#舊的show.html.erb link_to '詳細訊息', rent %>
+            <td><a href="#" data-toggle="modal" data-target="#rent<%= rent.id %>">詳細資料</a></td>
+            <%if rent.status=='待審核'%>
+            <td><%= link_to '列印頁面', srent_print_path(rent)=%>
+            <td><%= link_to '刪除', rent, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            <%end%>
+          </tr>
+          <!-- Modal -->
+          <div id="rent<%= rent.id %>" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+              <!-- Modal content-->
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  <h4 class="modal-title"><%= rent.name %></h4>
+                </div>
+                <div class="modal-body">
+                  <p>學期：<%= rent.semester.description %></p>
+                  <% rents={'4'=>'I202','5'=>'I210' , '6'=>'I002'}%>
+                  <p>教室：<%= rents[rent.facility.to_s] %></p>
+                  <p>事由：<%= rent.name %></p>
+                  <p>教師：<%= rent.teacher %></p>
+                  <p>借用人：<%= user.name %></p>
+                  <p>聯絡電話：<%= rent.phone %></p>
+                  <p>聯絡信箱：<%= rent.email %></p>
+                  <p>欲借用的時段：</p>
+                  <% classes=rent.classes.split(",")%>
+                  <% classes.each do |c|%>
+                    <p><%=c%></p>
+                  <%end%>
+                  <p>狀態：<%= rent.status %></p>
+                </div>
+                <div class="modal-footer">
+                  <%# link_to '編輯', edit_rent_path(rent), :class => "btn btn-default" %>
+                  <button type="button" class="btn btn-default" data-dismiss="modal">關閉</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        <% end %>
       </tbody>
     </table>
     </div>

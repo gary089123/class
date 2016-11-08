@@ -17,7 +17,7 @@ mysql: &mysql
   database: class
   host: localhost
   username: root
-  password:
+  password: GARY24836100
 
 development:
   <<: *mysql
