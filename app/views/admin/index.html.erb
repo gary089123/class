@@ -94,9 +94,9 @@
             <%#舊的show.html.erb link_to '詳細訊息', rent %>
             <td><a href="#" data-toggle="modal" data-target="#rent<%= rent.id %>">詳細資料</a></td>
             <%if rent.status=="待審核"%>
-            <td class="col-md-1"><%= link_to '審核', admin_vertify_path(rent) %></td>
+            <td class="col-md-1"><%= link_to '審核', admin_svertify_path(rent) %></td>
             <%else%>
-            <td class="col-md-1"><%= link_to '取消審核', admin_unvertify_path(rent) %></td>
+            <td class="col-md-1"><%= link_to '取消審核', admin_sunvertify_path(rent) %></td>
             <%end%>
             <td><%= link_to '刪除', rent, method: :delete, data: { confirm: 'Are you sure?' } %></td>
           </tr>

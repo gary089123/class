@@ -32,6 +32,8 @@ Rails.application.routes.draw do
     get '/', :to => 'admin#index'
     get 'vertify' ,:to => 'admin#vertify'
     get 'unvertify', :to=> 'admin#unvertify'
+    get 'svertify' ,:to => 'admin#svertify'
+    get 'sunvertify', :to=> 'admin#sunvertify'
     get 'listsemester', :to=> 'admin#listsemester'
     post 'semesters', :to => 'admin#create_semester'
     delete 'semesters/:id', :to => 'admin#destory_semester', :as => 'semester'

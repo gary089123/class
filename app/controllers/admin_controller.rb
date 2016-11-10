@@ -31,6 +31,16 @@ class AdminController < ApplicationController
     redirect_to admin_path
   end
 
+  def svertify
+    @srent=Srent.find(params[:format])
+    url = ENV['api_rent'] + @srent.apid.to_s+'/verify'
+    puts url
+    api = RestClient.put( url, { 'access_token'=> ENV['access_token'], 'id'=>@srent.apid.to_s, 'verify'=>true})
+    @srent.status="已借出"
+    @srent.save
+    redirect_to admin_path
+  end
+
   def unvertify
     @rent=Rent.find(params[:format])
     url = ENV['api_rent'] + @rent.apid.to_s+'/verify'
@@ -38,6 +48,16 @@ class AdminController < ApplicationController
     api = RestClient.put( url, { 'access_token'=> ENV['access_token'], 'id'=>@rent.apid.to_s, 'verify'=>false})
     @rent.status="待審核"
     @rent.save
+    redirect_to admin_path
+  end
+
+  def sunvertify
+    @srent=Srent.find(params[:format])
+    url = ENV['api_rent'] + @srent.apid.to_s+'/verify'
+    puts url
+    api = RestClient.put( url, { 'access_token'=> ENV['access_token'], 'id'=>@srent.apid.to_s, 'verify'=>false})
+    @srent.status="待審核"
+    @srent.save
     redirect_to admin_path
   end
 
