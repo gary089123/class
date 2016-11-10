@@ -56,8 +56,8 @@ class RentsController < ApplicationController
 
   def destroy
     ## API - 刪除rent
-    # url = ENV['api_rent'] + @rent.apid.to_s + '?access_token='+ENV['access_token']
-    # api = RestClient.delete(url , {})
+    url = ENV['api_rent'] + @rent.apid.to_s + '?access_token='+ENV['access_token']
+    api = RestClient.delete(url , {})
 
     # 刪除臨時性借用的時間
     @rent.rent_times.destroy_all
@@ -143,19 +143,19 @@ class RentsController < ApplicationController
     end
 
     ## API - 新增rent
-    # jdata=data.to_json
-    # url = ENV['api_facility'] + @rent.facility.to_s + '/rent'
-    # api = RestClient.post(url,
-    # {
-    #   :name => @rent.name,
-    #   :spans => jdata,
-    #   :access_token => ENV['access_token']
-    # })
-    # japi=JSON.parse(api)
+    jdata=data.to_json
+    url = ENV['api_facility'] + @rent.facility.to_s + '/rent'
+    api = RestClient.post(url,
+    {
+      :name => @rent.name,
+      :spans => jdata,
+      :access_token => ENV['access_token']
+    })
+    japi=JSON.parse(api)
 
     # 取得api的rent id以備更新或刪除
-    # @rent.apid = japi["id"].to_i
-    # @rent.save
+    @rent.apid = japi["id"].to_i
+    @rent.save
 
     # 意義不明?
     # params[:format]=nil
