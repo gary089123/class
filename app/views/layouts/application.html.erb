@@ -52,6 +52,11 @@
 
 
 <div class="leftdown">
+  <% if notice %>
+    <div class="alert alert-danger text-center">
+      <%= notice %>
+    </div>
+  <% end %>
   <%= yield %>
 </div>
 <br>
