@@ -68,6 +68,7 @@ class RentsController < ApplicationController
     @rent=Rent.new
     @srent=Srent.new
     @semesters = Semester.where(is_open: true)
+    @srent_c=Srent.all
     # abort @semesters.inspect
   end
 
