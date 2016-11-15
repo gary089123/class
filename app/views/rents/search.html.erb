@@ -60,9 +60,9 @@
                   <p>欲借用的時段：</p>
                   <% rent.rent_times.each do |time| %>
                     <p>
-                      <%= time.start.strftime('%Y / %m / %d %I:%M') %>
+                      <%= time.start.strftime('%Y / %m / %d %H:%M') %>
                        ～
-                      <%= time.end.strftime('%Y / %m / %d %I:%M') %>
+                      <%= time.end.strftime('%Y / %m / %d %H:%M') %>
                     </p>
                   <% end %>
                   <p>狀態：<%= rent.status %></p>

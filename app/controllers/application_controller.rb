@@ -40,10 +40,23 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  # 檢查是否有api的access_token
   def has_access_token
     if ENV['access_token'] == nil
       redirect_to oauth_path, notice: 'Please Login'
     end
+  end
+
+  # 檢查輸入的兩個時間區間是否重複
+  # ref: http://stackoverflow.com/questions/28667368/how-to-check-a-datetime-duration-exists-in-another-datetime-duration
+  # check_conflict?(["2015-02-23 10:30:00", "2015-02-23 13:30:00"],
+  #                 ["2015-02-23 12:30:00", "2015-02-23 14:30:00"])
+  # => true
+  # check_conflict?(["2015-02-23 10:30:00", "2015-02-23 12:30:00"],
+  #                 ["2015-02-23 12:30:00", "2015-02-23 13:30:00"])
+  # => false
+  def check_conflict?(exam1, exam2)
+    !(exam1.last <= exam2.first || exam1.first >= exam2.last)
   end
 
 end

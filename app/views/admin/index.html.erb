@@ -33,7 +33,7 @@
             <td><%= rent.semester.description %></td>
             <%rentc={'4'=>'I202','5'=>'I210','6'=>'I002'}%>
             <td><%= rentc[rent.facility.to_s]%></td>
-            <td><%= rent.created_at.strftime('%Y / %m / %d %I:%M') %></td>
+            <td><%= rent.created_at.strftime('%Y / %m / %d %H:%M') %></td>
             <td><%= rent.name %></td>
             <td><%= rent.status %></td>
             <%#舊的show.html.erb link_to '詳細訊息', rent %>
@@ -66,9 +66,9 @@
                   <p>欲借用的時段：</p>
                   <% rent.rent_times.each do |time| %>
                     <p>
-                      <%= time.start.strftime('%Y / %m / %d %I:%M') %>
+                      <%= time.start.strftime('%Y / %m / %d %H:%M') %>
                        ～
-                      <%= time.end.strftime('%Y / %m / %d %I:%M') %>
+                      <%= time.end.strftime('%Y / %m / %d %H:%M') %>
                     </p>
                   <% end %>
                   <p>狀態：<%= rent.status %></p>
@@ -88,7 +88,7 @@
             <td><%= rent.semester.description %></td>
             <%rentc={'4'=>'I202','5'=>'I210','6'=>'I002'}%>
             <td><%= rentc[rent.facility.to_s]%></td>
-            <td><%= rent.created_at.strftime('%Y / %m / %d %I:%M') %></td>
+            <td><%= rent.created_at.strftime('%Y / %m / %d %H:%M') %></td>
             <td><%= rent.name %></td>
             <td><%= rent.status %></td>
             <%#舊的show.html.erb link_to '詳細訊息', rent %>
@@ -121,9 +121,9 @@
                   <p>欲借用的時段：</p>
                   <% rent.srent_times.each do |time| %>
                     <p>
-                      <%= time.start.strftime('%Y / %m / %d %I:%M') %>
+                      <%= time.start.strftime('%Y / %m / %d %H:%M') %>
                        ～
-                      <%= time.end.strftime('%Y / %m / %d %I:%M') %>
+                      <%= time.end.strftime('%Y / %m / %d %H:%M') %>
                     </p>
                   <% end %>
                   <p>狀態：<%= rent.status %></p>

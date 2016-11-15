@@ -35,14 +35,14 @@
         <h4>使用時間及日期：</h4>
         <% @rent.rent_times.each do |time| %>
           <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <%= time.start.strftime('%Y / %m / %d %I:%M') %>
+            <%= time.start.strftime('%Y / %m / %d %H:%M') %>
              ～
-            <%= time.end.strftime('%Y / %m / %d %I:%M') %>
+            <%= time.end.strftime('%Y / %m / %d %H:%M') %>
           </p>
         <% end %>
       </div>
       <div class="block">
-        <h4>申請時間：<%= @rent.created_at.strftime('%Y / %m / %d %I:%M') %></h4>
+        <h4>申請時間：<%= @rent.created_at.strftime('%Y / %m / %d %H:%M') %></h4>
       </div>
       <div class="block">
         <h4>預計人數：</h4>

@@ -13,7 +13,7 @@
   </div>
   <div class="row">
     <div class="col-md-10 col-md-offset-1">
-      <h3>已借出的教室：</h3>
+      <h3>請不要填寫下列時段：</h3>
       <ul class="nav nav-tabs">
         <li class="active"><a data-toggle="tab" href="#rent-202">I202</a></li>
         <li><a data-toggle="tab" href="#rent-002">I002</a></li>
@@ -21,13 +21,73 @@
       </ul><br>
       <div class="tab-content">
         <div id="rent-202" class="tab-pane fade in active">
-          <iframe src="https://calendar.google.com/calendar/embed?showTitle=0&amp;showNav=0&amp;showPrint=0&amp;showTabs=0&amp;showCalendars=0&amp;showTz=0&amp;mode=WEEK&amp;height=600&amp;wkst=1&amp;bgcolor=%23FFFFFF&amp;src=<%= @rent_202 %>&amp;color=%232952A3&amp;ctz=Asia%2FTaipei" style="border-width:0" width="100%" height="600" frameborder="0" scrolling="no"></iframe>
+          <h4>臨時性借用：</h4>
+          <table class="table table-striped">
+            <thead>
+              <th>學期</th>
+              <th>時段</th>
+            </thead>
+            <tbody>
+              <% @rent_202.each do |r| %>
+                <tr>
+                  <td><%= r.semester.description %></td>
+                  <td>
+                    <% r.rent_times.each do |t| %>
+                      <%= t.start.strftime('%Y / %m / %d %H:%M') %>
+                       ～
+                      <%= t.end.strftime('%Y / %m / %d %H:%M') %><br>
+                    <% end %>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
         </div>
         <div id="rent-002" class="tab-pane fade">
-          <iframe src="https://calendar.google.com/calendar/embed?showTitle=0&amp;showNav=0&amp;showPrint=0&amp;showTabs=0&amp;showCalendars=0&amp;showTz=0&amp;mode=WEEK&amp;height=600&amp;wkst=1&amp;bgcolor=%23FFFFFF&amp;src=<%= @rent_002 %>&amp;color=%232952A3&amp;ctz=Asia%2FTaipei" style="border-width:0" width="100%" height="600" frameborder="0" scrolling="no"></iframe>
+          <h4>臨時性借用：</h4>
+          <table class="table table-striped">
+            <thead>
+              <th>學期</th>
+              <th>時段</th>
+            </thead>
+            <tbody>
+              <% @rent_002.each do |r| %>
+                <tr>
+                  <td><%= r.semester.description %></td>
+                  <td>
+                    <% r.rent_times.each do |t| %>
+                      <%= t.start.strftime('%Y / %m / %d %H:%M') %>
+                       ～
+                      <%= t.end.strftime('%Y / %m / %d %H:%M') %><br>
+                    <% end %>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
         </div>
         <div id="rent-210" class="tab-pane fade">
-          <iframe src="https://calendar.google.com/calendar/embed?showTitle=0&amp;showNav=0&amp;showPrint=0&amp;showTabs=0&amp;showCalendars=0&amp;showTz=0&amp;mode=WEEK&amp;height=600&amp;wkst=1&amp;bgcolor=%23FFFFFF&amp;src=<%= @rent_210 %>&amp;color=%232952A3&amp;ctz=Asia%2FTaipei" style="border-width:0" width="100%" height="600" frameborder="0" scrolling="no"></iframe>
+          <h4>臨時性借用：</h4>
+          <table class="table table-striped">
+            <thead>
+              <th>學期</th>
+              <th>時段</th>
+            </thead>
+            <tbody>
+              <% @rent_210.each do |r| %>
+                <tr>
+                  <td><%= r.semester.description %></td>
+                  <td>
+                    <% r.rent_times.each do |t| %>
+                      <%= t.start.strftime('%Y / %m / %d %H:%M') %>
+                       ～
+                      <%= t.end.strftime('%Y / %m / %d %H:%M') %><br>
+                    <% end %>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>

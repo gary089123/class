@@ -88,6 +88,8 @@
             %>
           <% end %>
         </div>
+        <%# 臨時性預約表單結束 %>
+
         <div id="new_srent" class="tab-pane fade">
           <div class="row">
     <div class="col-md-10 col-md-offset-1">
@@ -159,42 +161,11 @@
   </div>
 
 
-
-
         </div>
       </div>
     </div>
   </div>
-  <div class="row">
-    <div class="col-md-10 col-md-offset-1">
-      <h3>已借出的教室：</h3>
-      <ul class="nav nav-tabs">
-        <li class="active"><a data-toggle="tab" href="#rent-202">I202</a></li>
-        <li><a data-toggle="tab" href="#rent-002">I002</a></li>
-        <li><a data-toggle="tab" href="#rent-210">I210</a></li>
-      </ul><br>
-      <div class="tab-content">
-        <div id="rent-202" class="tab-pane fade in active">
-          <iframe
-          src="https://calendar.google.com/calendar/embed?height=600&amp;wkst=1&amp;bgcolor=%23FFFFFF&amp;src=<%= @rent_202 %>&amp;color=%23125A12"
-          style="border-width:0" width="100%" height="600" frameborder="0" scrolling="no">
-          </iframe>
-        </div>
-        <div id="rent-002" class="tab-pane fade">
-          <iframe
-          src="https://calendar.google.com/calendar/embed?height=600&amp;wkst=1&amp;bgcolor=%23FFFFFF&amp;src=<%= @rent_002 %>&amp;color=%23125A12"
-          style="border-width:0" width="100%" height="600" frameborder="0" scrolling="no">
-          </iframe>
-        </div>
-        <div id="rent-210" class="tab-pane fade">
-          <iframe
-          src="https://calendar.google.com/calendar/embed?height=600&amp;wkst=1&amp;bgcolor=%23FFFFFF&amp;src=<%= @rent_210 %>&amp;color=%23125A12"
-          style="border-width:0" width="100%" height="600" frameborder="0" scrolling="no">
-          </iframe>
-        </div>
-      </div>
-    </div>
-  </div>
+
 </div>
 
 <% content_for :javascript do %>
