@@ -25,29 +25,27 @@ class SrentsController < ApplicationController
     wday={1=>"一",2=>"二",3=>"三",4=>"四",5=>"五"}
     data=[]
     for j in 1..5
-      for i in 1..9
+      for i in 8..21
         if params[j.to_s+"-"+i.to_s]=="1"
 
-          classes_arr.push("星期"+wday[j]+"-"+(i+8-1).to_s+":00~"+(i+8).to_s+":00")
+          classes_arr.push("星期"+wday[j]+"-"+(i).to_s+":00~"+(i+1).to_s+":00")
           day_ofs=j-semester_s.wday
           if day_ofs<0
             day_ofs=day_ofs+7
           end
           date=semester_s+day_ofs*24*60*60
           while date<=semester_d
-            start=DateTime.new(date.year,date.mon,date.day,i+8-1)
-            endt=DateTime.new(date.year,date.mon,date.day,i+8)
+            start=Time.new(date.year,date.mon,date.day,i)
+            endt=Time.new(date.year,date.mon,date.day,i+1)
             @srent_time=SrentTime.new
             @srent_time.srent_id = @srent.id
             @srent_time.start=start
             @srent_time.end=endt
-            puts start.to_s+"++++++"
-            puts endt.to_s+"------"
+            @srent_time.class=i.to_s+"-"j.to_s
             @srent_time.save
             h ={ :start =>start , :end => endt}
             data << h
             date=date+7*60*60*24
-            puts date.to_s+"********"
           end
         end
       end
@@ -56,6 +54,7 @@ class SrentsController < ApplicationController
     @srent.classes=classes
     jdata=data.to_json
     url = ENV['api_facility'] + @srent.facility.to_s + '/rent'
+=begin
     api = RestClient.post(url,
     {
       :name => @srent.name,
@@ -65,6 +64,7 @@ class SrentsController < ApplicationController
     japi=JSON.parse(api)
     puts japi["id"]
     @srent.apid = japi["id"].to_i
+=end
     @srent.save
     params[:format]=nil
 

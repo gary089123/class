@@ -110,11 +110,11 @@
         <div class="form-group">
           <label for="rent_name">借用教室: </label>
           <%= f.radio_button :facility, '4' %>
-          <%= f.label :facility_4, 'I202' %>
+          <%= f.label :facility_4, 'I202電腦教室' %>
           <%= f.radio_button :facility, '6'%>
-          <%= f.label :facility_6, 'I002' %>
+          <%= f.label :facility_6, 'I002電腦教室' %>
           <%= f.radio_button :facility, '5'%>
-          <%= f.label :facility_5, 'I210' %>
+          <%= f.label :facility_5, 'I210視訊會議室' %>
 
         </div>
 
@@ -131,11 +131,17 @@
             </tr>
           </thread>
           <tbody>
-            <%for i in 1..9%>
+            <%for i in 8..21%>
             <tr>
-              <td><%= (8+i-1).to_s+":00~"+(8+i).to_s+":00"%></td>
+              <td><%= i.to_s+":00~"+(i+1).to_s+":00"%></td>
               <%for j in 1..5%>
-                <td><%=check_box_tag j.to_s+"-"+i.to_s%></td>
+                <%@srenttime = SrentTime.find_by ('class'=> j.to_s+"-"+i.to_s)%>
+                <%if @srenttime!=nil%>
+                  <%@srent=Srent.find(@srenttime.srent_id)%>
+                  <td><%= @srent%></td>
+                <%else%>
+                  <td><%=check_box_tag j.to_s+"-"+i.to_s%></td>
+                <%end%>
               <%end%>
             </tr>
             <%end%>
@@ -208,6 +214,15 @@ $(document).ready(function() {
         e.preventDefault(); $(this).parent('div').remove();
     })
 });
+</script>
+
+<script>
+function check() {
+    document.getElementById("srent_faciilty_4").checked == true;
+}
+function uncheck() {
+    document.getElementById("red").checked = false;
+}
 </script>
 <% end %>
 
