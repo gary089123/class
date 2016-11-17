@@ -1,3 +1,13 @@
+<% content_for :css do %>
+<style media="screen">
+  input[type="text"] {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  }
+</style>
+<% end %>
+
 <div class="container">
   <div class="jumbotron">
     <h2><i class="fa fa-paper-plane"></i> 填寫預約詳細內容</h2>
@@ -10,22 +20,26 @@
     <div class="col-md-10 col-md-offset-1">
       <h3>借用填寫：</h3>
       <ul class="nav nav-tabs">
-        <li class="active"><a data-toggle="tab" href="#new_rent">臨時性借用</a></li>
-        <li><a data-toggle="tab" href="#new_srent">學期性借用</a></li>
+        <li><a data-toggle="tab" href="#new_rent">臨時性借用</a></li>
+        <li class="active"><a data-toggle="tab" href="#new_srent">學期性借用</a></li>
       </ul><br>
       <div class="tab-content">
-        <div id="new_rent" class="tab-pane fade in active">
+
+        <%# 共同出現項目 %>
+        <div class="form-group">
+          <h4>目前可借時間</h4>
+          <% @semesters.each do |s| %>
+            <%= s.description %> ：
+            <%= s.start.strftime('%Y / %m / %d') %>
+             ～
+            <%= s.end.strftime('%Y / %m / %d') %>
+            <br>
+          <% end %>
+        </div>
+
+        <%# 臨時性預約表單開始 %>
+        <div id="new_rent" class="tab-pane fade">
           <%= form_for @rent do |f| %>
-            <div class="form-group">
-              <h4>目前可借時間</h4>
-              <% @semesters.each do |s| %>
-                <%= s.description %> ：
-                <%= s.start.strftime('%Y / %m / %d') %>
-                 ～
-                <%= s.end.strftime('%Y / %m / %d') %>
-                <br>
-              <% end %>
-            </div>
             <div class="form-group">
               <%= f.label :semester_id, '借用年度：' %>
               <%= f.select(:semester_id) do %>
@@ -35,7 +49,7 @@
               <% end %>
             </div>
             <div class="form-group">
-              <label for="rent_name">借用教室： </label>
+              <label>借用教室： </label>
               <%= f.radio_button :facility, '4' %>
               <%= f.label :facility_4, 'I202電腦教室' %>
               <%= f.radio_button :facility, '6'%>
@@ -44,19 +58,19 @@
               <%= f.label :facility_5, 'I210視訊會議室' %>
             </div>
             <div class="form-group">
-              <label for="rent_name">借用名稱： <label>
+              <%= f.label :name, '借用名稱：' %>
               <%= f.text_field :name, :class => "form-control", :placeholder => "例如：計算機實習" ,:required => true %>
             </div>
             <div class="form-group">
-              <label for="rent_teacher">授課教師： <label>
+              <%= f.label :teacher, '授課教師：' %>
               <%= f.text_field :teacher, :class => "form-control", :required => true %>
             </div>
             <div class="form-group">
-              <label for="rent_phone">聯絡電話： <label>
+              <%= f.label :phone, '聯絡電話：' %>
               <%= f.text_field :phone, :class => "form-control", :placeholder => "例如：0988123456" ,:required => true %>
             </div>
             <div class="form-group">
-              <label for="rent_email">聯絡信箱： <label>
+              <%= f.label :email, '聯絡信箱：' %>
               <%= f.text_field :email, :class => "form-control", :placeholder => "例如：john@example.com" ,:required => true %>
             </div>
             <div class="form-group input_fields_wrap">
@@ -64,19 +78,19 @@
               <h5>EX: 2016年 1月 1日 14：00～16：00</h5>
               <button type="button" class="btn btn-success" id="add_time_button">新增時段 <i class="fa fa-plus"></i></button>
               <br><br>
-              <input type="text" name="rent[year0]" id="rent_year_0" size="6" maxlength="4" required="required">
+              <input type="text" name="rent[year0]" id="rent_year_0" size="5" maxlength="4" required="required">
               年&nbsp;/
-              <input type="text" name="rent[month0]" id="rent_month_0" size="4" maxlength="2" required="required">
+              <input type="text" name="rent[month0]" id="rent_month_0" size="3" maxlength="2" required="required">
               月&nbsp;/
-              <input type="text" name="rent[day0]" id="rent_day_0" size="4" maxlength="2" required="required">
+              <input type="text" name="rent[day0]" id="rent_day_0" size="3" maxlength="2" required="required">
               日&nbsp;,
-              <input type="text" name="rent[start_time0]" size="4" maxlength="2" required="required">
+              <input type="text" name="rent[start_time0]" size="3" maxlength="2" required="required">
               ：00
               ～
-              <input type="text" name="rent[end_time0]" size="4" maxlength="2" required="required">
+              <input type="text" name="rent[end_time0]" size="3" maxlength="2" required="required">
               ：00
               &nbsp;
-              <button type="button" class="btn btn-sm btn-info" id="set_today">設為今天</button>
+              <!-- <button type="button" class="btn btn-sm btn-info" id="set_today">設為今天</button> -->
               <br>
               <input type="hidden" name="rent[calculus]" id="rent_calculus" value="1">
             </div>
@@ -90,10 +104,8 @@
         </div>
         <%# 臨時性預約表單結束 %>
 
-        <div id="new_srent" class="tab-pane fade">
-          <div class="row">
-    <div class="col-md-10 col-md-offset-1">
-      <h3>借用填寫：</h3>
+        <%# 學期性預約表單開始 %>
+        <div id="new_srent" class="tab-pane fade in active">
       <%= form_for @srent do  |f| %>
       <div class="form-group">
         <%= f.label :semester_id, '借用年度：' %>
@@ -104,22 +116,34 @@
         <% end %>
       </div>
         <div class="form-group">
-          <label for="rent_name">借用名稱: </label>
-          <%= f.text_field :name, :class => "form-control", :placeholder => "例如：計算機實習" %>
-        </div>
-        <div class="form-group">
-          <label for="rent_name">借用教室: </label>
+          <label>借用教室： </label>
           <%= f.radio_button :facility, '4' %>
           <%= f.label :facility_4, 'I202電腦教室' %>
           <%= f.radio_button :facility, '6'%>
           <%= f.label :facility_6, 'I002電腦教室' %>
           <%= f.radio_button :facility, '5'%>
           <%= f.label :facility_5, 'I210視訊會議室' %>
-
+        </div>
+        <div class="form-group">
+          <%= f.label :name, '借用名稱：' %>
+          <%= f.text_field :name, :class => "form-control", :placeholder => "例如：計算機實習" %>
+        </div>
+        <div class="form-group">
+          <%= f.label :teacher, '授課教師：' %>
+          <%= f.text_field :teacher, :class => "form-control", :required => true %>
+        </div>
+        <div class="form-group">
+          <%= f.label :phone, '聯絡電話：' %>
+          <%= f.text_field :phone, :class => "form-control", :placeholder => "例如：0988123456" ,:required => true %>
+        </div>
+        <div class="form-group">
+          <%= f.label :email, '聯絡信箱：' %>
+          <%= f.text_field :email, :class => "form-control", :placeholder => "例如：john@example.com" ,:required => true %>
         </div>
 
         <div class="form-group">
-          <table>
+          <label>時段勾選： </label>
+          <table class="table table-striped">
           <thread>
             <tr>
               <th>時間</th>
@@ -182,36 +206,22 @@
           </tbody>
           </table>
         </div>
-        <div class="form-group">
-          <label for="rent_teacher">授課教師： <label>
-          <%= f.text_field :teacher, :class => "form-control", :required => true %>
-        </div>
-        <div class="form-group">
-          <label for="rent_phone">聯絡電話： <label>
-          <%= f.text_field :phone, :class => "form-control", :placeholder => "例如：0988123456" ,:required => true %>
-        </div>
-        <div class="form-group">
-          <label for="rent_email">聯絡信箱： <label>
-          <%= f.text_field :email, :class => "form-control", :placeholder => "例如：john@example.com" ,:required => true %>
-        </div>
 
         <%= f.submit '送出預約', :class => "btn btn-danger btn-lg btn-block", :role => "button" %>
       <% end %>
     </div>
-  </div>
-
-
-        </div>
       </div>
-    </div>
-  </div>
+      <%# 學期性預約表單結束 %>
 
-</div>
+      </div> <%# tab-content %>
+    </div> <%# col %>
+  </div> <%# row %>
 
 <% content_for :javascript do %>
 <script type="text/javascript">
 $(document).ready(function() {
 
+    //// 臨時性預約區 ////
     // 設定時間
     var today = new Date();
     var today_day = today.getDate();
@@ -232,11 +242,11 @@ $(document).ready(function() {
     $(add_button).click(function(e){ //on add input button click
         e.preventDefault();
         if(x < max_fields){ //max input box allowed
-            var year = "<input type='text' name='rent[year"+x+"]' size='6' maxlength='4' value='"+today_year+"' required='required'>";
-            var month = "<input type='text' name='rent[month"+x+"]' size='4' maxlength='2' required='required'>";
-            var day = "<input type='text' name='rent[day"+x+"]' size='4' maxlength='2' required='required'>";
-            var stime = "<input type='text' name='rent[start_time"+x+"]' size='4' maxlength='2' required='required'>";
-            var etime = "<input type='text' name='rent[end_time"+x+"]' size='4' maxlength='2' required='required'>";
+            var year = "<input type='text' name='rent[year"+x+"]' size='5' maxlength='4' value='"+today_year+"' required='required'>";
+            var month = "<input type='text' name='rent[month"+x+"]' size='3' maxlength='2' required='required'>";
+            var day = "<input type='text' name='rent[day"+x+"]' size='3' maxlength='2' required='required'>";
+            var stime = "<input type='text' name='rent[start_time"+x+"]' size='3' maxlength='2' required='required'>";
+            var etime = "<input type='text' name='rent[end_time"+x+"]' size='3' maxlength='2' required='required'>";
             var result = "<div>" + year + ' 年 / ' + month + ' 月 / ' + day + ' 日 , ' + stime + ' ：00 ～ ' + etime  + ' ：00 ';
             result+="<a href='#' class='remove_field text-danger'> &nbsp;&nbsp;<i class='fa fa-times'></i></a></div>";
             $(wrapper).append(result);
@@ -246,7 +256,8 @@ $(document).ready(function() {
     });
     $(wrapper).on("click",".remove_field", function(e){ //user click on remove text
         e.preventDefault(); $(this).parent('div').remove();
-    })
+    });
+    //// 臨時性預約區 /////
 });
 </script>
 
