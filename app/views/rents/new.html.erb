@@ -135,8 +135,8 @@
             <tr>
               <td><%= i.to_s+":00~"+(i+1).to_s+":00"%></td>
               <%for j in 1..5%>
-                <%@srent = SrentTime.joins(:srent).where('classes'=> j.to_s+"-"+i.to_s).find_by('srents.facility'=>4)%>
-                <%@rentn = RentTime.joins(:rent).where('classes Like ? ',"%#{j.to_s+"-"+i.to_s}%").find_by('rents.facility'=>4)%>
+                <%@srent = SrentTime.joins(:srent).where('classes'=> j.to_s+"-"+i.to_s).where('srents.status'=>'已借出').find_by('srents.facility'=>4)%>
+                <%@rentn = RentTime.joins(:rent).where('classes Like ? ',"%#{j.to_s+"-"+i.to_s}%").where('rents.status'=>'已借出').find_by('rents.facility'=>4)%>
                 <%if @srent!=nil %>
                   <td><a href="#" data-toggle="modal" data-target="#rent<%= j.to_s+"-"+i.to_s %>"><%= @srent.srent.name%></a></td>
                   <%@r=@srent.srent%>
