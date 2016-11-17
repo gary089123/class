@@ -41,14 +41,14 @@ class ApplicationController < ActionController::Base
 
   def authenticate_user!
     unless user_signed_in?
-      redirect_to oauth_path, notice: 'Please Login'
+      redirect_to oauth_path, notice: '登入成功 Login Success'
     end
   end
 
   # 檢查是否有api的access_token
   def has_access_token
     if ENV['access_token'] == nil
-      redirect_to oauth_path, notice: 'Please Login'
+      redirect_to oauth_path, notice: '登入成功 Login Success'
     end
   end
 

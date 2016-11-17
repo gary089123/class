@@ -53,9 +53,11 @@
 
 <div class="leftdown">
   <% if notice %>
-    <div class="alert alert-danger text-center alert-dismissable fade in">
-      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-      <%= notice %>
+    <div class="container">
+      <div class="alert alert-danger text-center alert-dismissable fade in">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <%= notice %>
+      </div>
     </div>
   <% end %>
   <%= yield %>

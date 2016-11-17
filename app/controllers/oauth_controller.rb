@@ -46,8 +46,8 @@ class OauthController < ApplicationController
 
   def logout
     session.delete(:user_id)
-
-    redirect_to root_path , notice: 'logout success'
+    ENV['access_token'] = nil
+    redirect_to root_path , notice: '登出成功 Logout Success'
   end
 
 # just for test
