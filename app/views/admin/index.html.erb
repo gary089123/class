@@ -21,7 +21,6 @@
           <th>事由</th>
           <th>狀態</th>
           <th>詳細資料</th>
-          <th>審核</th>
           <th>操作</th>
         </tr>
       </thead>
@@ -38,11 +37,6 @@
             <td><%= rent.status %></td>
             <%#舊的show.html.erb link_to '詳細訊息', rent %>
             <td><a href="#" data-toggle="modal" data-target="#rent<%= rent.id %>">詳細資料</a></td>
-            <%if rent.status=="待審核"%>
-            <td class="col-md-1"><%= link_to '審核', admin_vertify_path(rent) %></td>
-            <%else%>
-            <td class="col-md-1"><%= link_to '取消審核', admin_unvertify_path(rent) %></td>
-            <%end%>
             <td><%= link_to '刪除', rent, method: :delete, data: { confirm: 'Are you sure?' } %></td>
           </tr>
           <!-- Modal -->
@@ -64,14 +58,23 @@
                   <p>聯絡電話：<%= rent.phone %></p>
                   <p>聯絡信箱：<%= rent.email %></p>
                   <p>欲借用的時段：</p>
-                  <% classes=@srent.classes.split(",")%>
-                  <% classes.each do |c|%>
-                    <p><%=c%></p>
-                  <%end%>
+                  <% rent.rent_times.each do |time| %>
+                    <p>
+                      <%= time.start.strftime('%Y / %m / %d %H:%M') %>
+                       ～
+                      <%= time.end.strftime('%Y / %m / %d %H:%M') %>
+                    </p>
+                  <% end %>
+
                   <p>狀態：<%= rent.status %></p>
                 </div>
                 <div class="modal-footer">
                   <%# link_to '編輯', edit_rent_path(rent), :class => "btn btn-default" %>
+                  <%if rent.status=="待審核"%>
+                  <%= link_to '審核' ,admin_vertify_path(rent) , :class =>"btn btn-default"%>
+                  <%else%>
+                  <%= link_to '取消審核' ,admin_unvertify_path(rent) , :class =>"btn btn-default"%>
+                  <%end%>
                   <button type="button" class="btn btn-default" data-dismiss="modal">關閉</button>
                 </div>
               </div>
@@ -90,11 +93,6 @@
             <td><%= rent.status %></td>
             <%#舊的show.html.erb link_to '詳細訊息', rent %>
             <td><a href="#" data-toggle="modal" data-target="#rent<%= rent.id %>">詳細資料</a></td>
-            <%if rent.status=="待審核"%>
-            <td class="col-md-1"><%= link_to '審核', admin_svertify_path(rent) %></td>
-            <%else%>
-            <td class="col-md-1"><%= link_to '取消審核', admin_sunvertify_path(rent) %></td>
-            <%end%>
             <td><%= link_to '刪除', rent, method: :delete, data: { confirm: 'Are you sure?' } %></td>
           </tr>
           <!-- Modal -->
@@ -116,17 +114,19 @@
                   <p>聯絡電話：<%= rent.phone %></p>
                   <p>聯絡信箱：<%= rent.email %></p>
                   <p>欲借用的時段：</p>
-                  <% rent.srent_times.each do |time| %>
-                    <p>
-                      <%= time.start.strftime('%Y / %m / %d %H:%M') %>
-                       ～
-                      <%= time.end.strftime('%Y / %m / %d %H:%M') %>
-                    </p>
-                  <% end %>
+                  <% classes=rent.classes.split(",")%>
+                  <% classes.each do |c|%>
+                    <p><%=c%></p>
+                  <%end%>
                   <p>狀態：<%= rent.status %></p>
                 </div>
                 <div class="modal-footer">
                   <%# link_to '編輯', edit_rent_path(rent), :class => "btn btn-default" %>
+                  <%if rent.status=="待審核"%>
+                  <%= link_to '審核' ,admin_svertify_path(rent) , :class =>"btn btn-default"%>
+                  <%else%>
+                  <%= link_to '取消審核' ,admin_sunvertify_path(rent) , :class =>"btn btn-default"%>
+                  <%end%>
                   <button type="button" class="btn btn-default" data-dismiss="modal">關閉</button>
                 </div>
               </div>
