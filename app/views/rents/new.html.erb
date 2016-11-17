@@ -135,10 +135,10 @@
             <tr>
               <td><%= i.to_s+":00~"+(i+1).to_s+":00"%></td>
               <%for j in 1..5%>
-                <%@srenttime = SrentTime.find_by ('class'=> j.to_s+"-"+i.to_s)%>
+                <%@srenttime = SrentTime.find_by('classes'=> i.to_s+"-"+j.to_s)%>
                 <%if @srenttime!=nil%>
                   <%@srent=Srent.find(@srenttime.srent_id)%>
-                  <td><%= @srent%></td>
+                  <td><%= @srent.name%></td>
                 <%else%>
                   <td><%=check_box_tag j.to_s+"-"+i.to_s%></td>
                 <%end%>

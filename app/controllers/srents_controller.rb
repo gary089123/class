@@ -41,7 +41,7 @@ class SrentsController < ApplicationController
             @srent_time.srent_id = @srent.id
             @srent_time.start=start
             @srent_time.end=endt
-            @srent_time.class=i.to_s+"-"j.to_s
+            @srent_time.classes=j.to_s+"-"+i.to_s
             @srent_time.save
             h ={ :start =>start , :end => endt}
             data << h
