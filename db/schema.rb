@@ -11,14 +11,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161116030642) do
+ActiveRecord::Schema.define(version: 20161117010334) do
 
   create_table "rent_times", force: :cascade do |t|
     t.integer  "rent_id",    limit: 4
     t.datetime "start"
     t.datetime "end"
-    t.datetime "created_at",           null: false
-    t.datetime "updated_at",           null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+    t.string   "classes",    limit: 255
   end
 
   add_index "rent_times", ["rent_id"], name: "index_rent_times_on_rent_id", using: :btree
@@ -59,7 +60,7 @@ ActiveRecord::Schema.define(version: 20161116030642) do
     t.datetime "end"
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
-    t.string   "class",      limit: 255
+    t.string   "classes",    limit: 255
   end
 
   add_index "srent_times", ["srent_id"], name: "index_srent_times_on_srent_id", using: :btree

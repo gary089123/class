@@ -13,6 +13,7 @@ class RentsController < ApplicationController
     @rent_202 = @rent_202.order("semester_id asc")
     @rent_210 = @rent_210.order("semester_id asc")
     @rent_002 = @rent_002.order("semester_id asc")
+
   end
 
   def search
@@ -101,6 +102,7 @@ class RentsController < ApplicationController
         start = Time.new(rent["year"+i.to_s].to_i ,rent["month"+i.to_s].to_i ,rent["day"+i.to_s].to_i ,rent["start_time"+i.to_s].to_i, 0)
         endt = Time.new(rent["year"+i.to_s].to_i ,rent["month"+i.to_s].to_i ,rent["day"+i.to_s].to_i ,rent["end_time"+i.to_s].to_i, 0)
 
+
         # 結束時間當然要大於開始時間
         if !(start < endt)
           @rent.rent_times.destroy_all
@@ -128,12 +130,16 @@ class RentsController < ApplicationController
         end
 
         # TODO: 檢查是否跟學期性撞時
-
+        classes=""
+        for i in start.hour..(endt.hour-1)
+          classes=classes+start.wday.to_s+"-"+i.to_s+","
+        end
         # rent_time 資料表
         @rent_time = RentTime.new
         @rent_time.rent_id = @rent.id
         @rent_time.start = start
         @rent_time.end = endt
+        @rent_time.classes = classes
         @rent_time.save
 
         # for api
