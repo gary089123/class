@@ -21,7 +21,7 @@ class ApplicationController < ActionController::Base
   ENV['api_personnel'] = 'http://140.115.3.188/personnel/v1/info'
   ENV['api_facility'] = 'http://140.115.3.188/facility/v1/facility/'
   ENV['api_rent'] = 'http://140.115.3.188/facility/v1/rent/'
-
+  # 借用時段的時間 8點到22點
   ENV['rent_start_time']='8'
   ENV['rent_finish_time']='22'
 

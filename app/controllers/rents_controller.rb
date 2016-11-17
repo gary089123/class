@@ -102,6 +102,12 @@ class RentsController < ApplicationController
         start = Time.new(rent["year"+i.to_s].to_i ,rent["month"+i.to_s].to_i ,rent["day"+i.to_s].to_i ,rent["start_time"+i.to_s].to_i, 0)
         endt = Time.new(rent["year"+i.to_s].to_i ,rent["month"+i.to_s].to_i ,rent["day"+i.to_s].to_i ,rent["end_time"+i.to_s].to_i, 0)
 
+        # (小時)應介於可借的時間  ENV['rent_start_time']～ENV['rent_finish_time']
+        if !(ENV['rent_start_time'].to_i <= start.hour && endt.hour <= ENV['rent_finish_time'].to_i)
+          @rent.rent_times.destroy_all
+          @rent.destroy
+          return redirect_to :back, notice: '借用時間限電算中心有人值班時！請重填。'
+        end
 
         # 結束時間當然要大於開始時間
         if !(start < endt)
