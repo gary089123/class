@@ -8,7 +8,7 @@
   </div>
   <div class="row">
     <div class="col-md-10 col-md-offset-1">
-      <h3>您的臨時性預約：</h3>
+      <h3>您的預約：</h3>
       <table class="table table-striped">
       <thead>
         <tr>
@@ -26,7 +26,7 @@
         <% @rent.each do |rent| %>
         <% user= User.find(rent.user_id)%>
           <tr>
-            <td><%= rent.id %></td>
+            <td><%= "(臨時性)"+rent.id.to_s %></td>
             <td><%= rent.semester.description %></td>
             <%rentc={'4'=>'I202','5'=>'I210','6'=>'I002'}%>
             <td><%= rentc[rent.facility.to_s]%></td>
@@ -110,9 +110,11 @@
                   <p>聯絡電話：<%= rent.phone %></p>
                   <p>聯絡信箱：<%= rent.email %></p>
                   <p>欲借用的時段：</p>
+                  <%if rent.classes!=nil%>
                   <% classes=rent.classes.split(",")%>
                   <% classes.each do |c|%>
                     <p><%=c%></p>
+                  <%end%>
                   <%end%>
                   <p>狀態：<%= rent.status %></p>
                 </div>

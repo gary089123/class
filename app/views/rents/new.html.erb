@@ -131,7 +131,7 @@
             </tr>
           </thread>
           <tbody>
-            <%for i in 8..21%>
+            <%for i in ENV['rent_start_time'].to_i..(ENV['rent_finish_time'].to_i-1)%>
             <tr>
               <td><%= i.to_s+":00~"+(i+1).to_s+":00"%></td>
               <%for j in 1..5%>

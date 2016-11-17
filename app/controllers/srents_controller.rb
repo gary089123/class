@@ -25,7 +25,7 @@ class SrentsController < ApplicationController
     wday={1=>"一",2=>"二",3=>"三",4=>"四",5=>"五"}
     data=[]
     for j in 1..5
-      for i in 8..21
+      for i in ENV['rent_start_time'].to_i..(ENV['rent_finish_time'].to_i-1)
         if params[j.to_s+"-"+i.to_s]=="1"
 
           classes_arr.push("星期"+wday[j]+"-"+(i).to_s+":00~"+(i+1).to_s+":00")
@@ -54,7 +54,7 @@ class SrentsController < ApplicationController
     @srent.classes=classes
     jdata=data.to_json
     url = ENV['api_facility'] + @srent.facility.to_s + '/rent'
-=begin
+
     api = RestClient.post(url,
     {
       :name => @srent.name,
@@ -64,7 +64,7 @@ class SrentsController < ApplicationController
     japi=JSON.parse(api)
     puts japi["id"]
     @srent.apid = japi["id"].to_i
-=end
+
     @srent.save
     params[:format]=nil
 

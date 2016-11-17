@@ -22,6 +22,11 @@ class ApplicationController < ActionController::Base
   ENV['api_facility'] = 'http://140.115.3.188/facility/v1/facility/'
   ENV['api_rent'] = 'http://140.115.3.188/facility/v1/rent/'
 
+  ENV['rent_start_time']='8'
+  ENV['rent_finish_time']='22'
+
+
+
   def current_user
     if session[:user_id]==nil
       @current_user =nil
