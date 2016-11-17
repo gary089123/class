@@ -138,12 +138,44 @@
                 <%@srent = SrentTime.joins(:srent).where('classes'=> j.to_s+"-"+i.to_s).find_by('srents.facility'=>4)%>
                 <%@rentn = RentTime.joins(:rent).where('classes Like ? ',"%#{j.to_s+"-"+i.to_s}%").find_by('rents.facility'=>4)%>
                 <%if @srent!=nil %>
-                  <td><%= @srent.srent.name%></td>
+                  <td><a href="#" data-toggle="modal" data-target="#rent<%= j.to_s+"-"+i.to_s %>"><%= @srent.srent.name%></a></td>
+                  <%@r=@srent.srent%>
+                  <%type="學期性"%>
                 <%elsif @rentn!=nil%>
-                  <td><%= @rentn.rent.name%></td>
+                  <td><a href="#" data-toggle="modal" data-target="#rent<%= j.to_s+"-"+i.to_s %>"><td><%= @rentn.rent.name%></a></td>
+                  <%@r=@rentn.rent%>
+                  <%type="臨時性"%>
                 <%else%>
                   <td><%=check_box_tag j.to_s+"-"+i.to_s%></td>
                 <%end%>
+                <%if @r!=nil%>
+                <div id="rent<%= j.to_s+"-"+i.to_s %>" class="modal fade" role="dialog">
+                  <div class="modal-dialog">
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title"><%= @r.name %></h4>
+                      </div>
+                      <div class="modal-body">
+                        <p>學期：<%= @r.semester.description %></p>
+                        <% rents={'4'=>'I202','5'=>'I210' , '6'=>'I002'}%>
+                        <p>教室：<%= rents[@r.facility.to_s] %></p>
+                        <p>類別：<%= type%></p>
+                        <p>事由：<%= @r.name %></p>
+                        <p>教師：<%= @r.teacher %></p>
+                        <p>借用人：<%= User.find(@r.user_id).name %></p>
+                        <p>聯絡電話：<%= @r.phone %></p>
+                        <p>聯絡信箱：<%= @r.email %></p>
+
+                      </div>
+                      <div class="modal-footer">
+                        <%# link_to '編輯', edit_rent_path(rent), :class => "btn btn-default" %>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">關閉</button>
+                      </div>
+                    </div>
+                  </div>
+                  <%end%>
               <%end%>
             </tr>
             <%end%>
