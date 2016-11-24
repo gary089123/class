@@ -21,7 +21,7 @@ class ApplicationController < ActionController::Base
   ENV['api_personnel'] = 'http://140.115.3.188/personnel/v1/info'
   ENV['api_facility'] = 'http://140.115.3.188/facility/v1/facility/'
   ENV['api_rent'] = 'http://140.115.3.188/facility/v1/rent/'
-
+  # 借用時段的時間 8點到22點
   ENV['rent_start_time']='8'
   ENV['rent_finish_time']='22'
 
@@ -41,14 +41,14 @@ class ApplicationController < ActionController::Base
 
   def authenticate_user!
     unless user_signed_in?
-      redirect_to oauth_path, notice: 'Please Login'
+      redirect_to oauth_path, notice: '登入成功 Login Success'
     end
   end
 
   # 檢查是否有api的access_token
   def has_access_token
     if ENV['access_token'] == nil
-      redirect_to oauth_path, notice: 'Please Login'
+      redirect_to oauth_path, notice: '登入成功 Login Success'
     end
   end
 

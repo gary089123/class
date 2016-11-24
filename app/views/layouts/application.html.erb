@@ -8,6 +8,7 @@
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
+  <%= yield :css %>
 </head>
 <body>
 
@@ -53,8 +54,11 @@
 
 <div class="leftdown">
   <% if notice %>
-    <div class="alert alert-danger text-center">
-      <%= notice %>
+    <div class="container">
+      <div class="alert alert-danger text-center alert-dismissable fade in">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <%= notice %>
+      </div>
     </div>
   <% end %>
   <%= yield %>

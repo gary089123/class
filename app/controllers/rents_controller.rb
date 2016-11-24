@@ -102,6 +102,12 @@ class RentsController < ApplicationController
         start = Time.new(rent["year"+i.to_s].to_i ,rent["month"+i.to_s].to_i ,rent["day"+i.to_s].to_i ,rent["start_time"+i.to_s].to_i, 0)
         endt = Time.new(rent["year"+i.to_s].to_i ,rent["month"+i.to_s].to_i ,rent["day"+i.to_s].to_i ,rent["end_time"+i.to_s].to_i, 0)
 
+        # (小時)應介於可借的時間  ENV['rent_start_time']～ENV['rent_finish_time']
+        if !(ENV['rent_start_time'].to_i <= start.hour && endt.hour <= ENV['rent_finish_time'].to_i)
+          @rent.rent_times.destroy_all
+          @rent.destroy
+          return redirect_to :back, notice: '借用時間限電算中心有人值班時！請重填。'
+        end
 
         # 結束時間當然要大於開始時間
         if !(start < endt)
@@ -118,18 +124,40 @@ class RentsController < ApplicationController
         end
 
         # 檢查是否跟臨時性重疊
+        remind_flag = false # 提醒使用者是否撞時
         @all_rents = Rent.where(semester_id: rent[:semester_id], facility: rent[:facility])
         @all_rents.each do |all_rent|
           all_rent.rent_times.each do |rent_time|
             if check_conflict?( [start, endt], [rent_time.start,rent_time.end] )
-              @rent.rent_times.destroy_all
-              @rent.destroy
-              return redirect_to :back, notice: '該時段已被申請'
+              if all_rent.status == '待審核'
+                remind_flag = true
+              else
+                @rent.rent_times.destroy_all
+                @rent.destroy
+                return redirect_to :back, notice: '該時段已被申請'
+              end
             end
           end
         end
 
-        # TODO: 檢查是否跟學期性撞時
+        # NOTE: 未測試
+        # 檢查是否跟學期性撞時
+        @all_srents = Srent.where(semester_id: rent[:semester_id], facility: rent[:facility])
+        @all_srents.each do |all_srent|
+          all_srent.srent_times.each do |srent_time|
+            if check_conflict?( [start, endt], [srent_time.start,srent_time.end] )
+              if all_srent.status == '待審核'
+                remind_flag = true
+              else
+                @rent.rent_times.destroy_all
+                @rent.destroy
+                return redirect_to :back, notice: '該時段已被申請'
+              end
+            end
+          end
+        end
+
+        # for學期性預約加的
         classes=""
         for i in start.hour..(endt.hour-1)
           classes=classes+start.wday.to_s+"-"+i.to_s+","
@@ -166,10 +194,11 @@ class RentsController < ApplicationController
     @rent.apid = japi["id"].to_i
     @rent.save
 
-    # 意義不明?
-    # params[:format]=nil
-
-    redirect_to rent_print_path
+    if remind_flag
+      return redirect_to rent_print_path, notice: '提醒您！您成功預約的時段已有人預約（仍然審核中未通過）。'
+    else
+      return redirect_to rent_print_path
+    end
   end
 
 
