@@ -146,7 +146,7 @@
         <div class="form-group">
 
           <label>時段勾選： </label>
-          <table class="table table-striped">
+          <table class="table table-bordered">
 
           <thread>
             <tr>
@@ -165,17 +165,24 @@
               <%for j in 1..5%>
                 <%@srent = SrentTime.joins(:srent).where('classes'=> j.to_s+"-"+i.to_s).where('srents.status'=>'已借出').find_by('srents.facility'=>4)%>
                 <%@rentn = RentTime.joins(:rent).where('classes Like ? ',"%#{j.to_s+"-"+i.to_s}%").where('rents.status'=>'已借出').find_by('rents.facility'=>4)%>
+                <%@c_srent = SrentTime.joins(:srent).where('classes'=> j.to_s+"-"+i.to_s).where('srents.status'=>'待審核').find_by('srents.facility'=>4)%>
+                <%@c_rentn = RentTime.joins(:rent).where('classes Like ? ',"%#{j.to_s+"-"+i.to_s}%").where('rents.status'=>'待審核').find_by('rents.facility'=>4)%>
+
                 <%if @srent!=nil %>
                   <td><a href="#" data-toggle="modal" data-target="#rent<%= j.to_s+"-"+i.to_s %>"><%= @srent.srent.name%></a></td>
                   <%@r=@srent.srent%>
                   <%type="學期性"%>
                 <%elsif @rentn!=nil%>
-                  <td><a href="#" data-toggle="modal" data-target="#rent<%= j.to_s+"-"+i.to_s %>"><td><%= @rentn.rent.name%></a></td>
+                  <td><a href="#" data-toggle="modal" data-target="#rent<%= j.to_s+"-"+i.to_s %>"><%= @rentn.rent.name%></a></td>
                   <%@r=@rentn.rent%>
+                  <%puts  @rentn.rent.name%>
                   <%type="臨時性"%>
+                <%elsif @c_srent != nil || @c_rentn !=nil%>
+                  <td><%=check_box_tag j.to_s+"-"+i.to_s%>已有待審核</td>
                 <%else%>
                   <td><%=check_box_tag j.to_s+"-"+i.to_s%></td>
                 <%end%>
+
                 <%if @r!=nil%>
                 <div id="rent<%= j.to_s+"-"+i.to_s %>" class="modal fade" role="dialog">
                   <div class="modal-dialog">
@@ -186,11 +193,24 @@
                         <h4 class="modal-title"><%= @r.name %></h4>
                       </div>
                       <div class="modal-body">
+                        <%if type=="臨時性"%>
+                          <p>＊該時段已有其中幾節被借用，如欲借用，請已臨時性借用＊</p>
+                        <%end%>
                         <p>學期：<%= @r.semester.description %></p>
                         <% rents={'4'=>'I202','5'=>'I210' , '6'=>'I002'}%>
                         <p>教室：<%= rents[@r.facility.to_s] %></p>
                         <p>類別：<%= type%></p>
                         <p>事由：<%= @r.name %></p>
+                        <%if type=="臨時性"%>
+                          <p>使用時間及日期：</p>
+                          <% @r.rent_times.each do |time| %>
+                            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                              <%= time.start.strftime('%Y / %m / %d %H:%M') %>
+                              ～
+                              <%= time.end.strftime('%Y / %m / %d %H:%M') %>
+                            </p>
+                          <% end %>
+                        <%end%>
                         <p>教師：<%= @r.teacher %></p>
                         <p>借用人：<%= User.find(@r.user_id).name %></p>
                         <p>聯絡電話：<%= @r.phone %></p>
@@ -265,14 +285,6 @@ $(document).ready(function() {
 });
 </script>
 
-<script>
-function check() {
-    document.getElementById("srent_faciilty_4").checked == true;
-}
-function uncheck() {
-    document.getElementById("red").checked = false;
-}
-</script>
 <% end %>
 
 <!-- <%= form_for @rent do  |f| %>
