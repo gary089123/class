@@ -134,6 +134,7 @@ class RentsController < ApplicationController
         for i in start.hour..(endt.hour-1)
           classes=classes+start.wday.to_s+"-"+i.to_s+","
         end
+        puts classes
         # rent_time 資料表
         @rent_time = RentTime.new
         @rent_time.rent_id = @rent.id
