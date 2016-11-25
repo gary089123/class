@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161117010334) do
+ActiveRecord::Schema.define(version: 20161125032008) do
 
   create_table "rent_times", force: :cascade do |t|
     t.integer  "rent_id",    limit: 4
@@ -86,7 +86,7 @@ ActiveRecord::Schema.define(version: 20161117010334) do
   add_index "srents", ["semester_id"], name: "index_srents_on_semester_id", using: :btree
 
   create_table "users", force: :cascade do |t|
-    t.integer  "idnumber",   limit: 4
+    t.string   "idnumber",   limit: 255
     t.string   "name",       limit: 255
     t.string   "unit",       limit: 255
     t.datetime "created_at",             null: false
